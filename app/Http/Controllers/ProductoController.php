@@ -13,24 +13,32 @@ class ProductoController extends Controller
     public function index()
     {
         // falta segun una categoria;
-        $products = DB::select('select * from productos');
+        $products = DB::table('productos')->get();
 
         return view('productos.index',compact('products'));
     }
 
     public function porCategoria($categoria){
-        $productos = DB::select('select * from productos where ');
+        //A modificar falta agregar tabla subcategoria
+        $productos = DB::table('productos')
+                    ->join('subcategorias','subcategorias.id','=','productos.subcategoria_id')
+                    ->join('categorias', function (JoinClause $join){
+                        $join->on('subcategorias.categoria_id','=','categorias.id')
+                        ->where('categorias.id','=',$categoria->id);})
+                        ->get();
         return view('categoria.lista_productos_categoria',compact('categoria'));
     }
 
-    public function porSubCategoria($categoria,$subcategoria){
-        $productos = DB::select('select * from productos where ');
-        return view('categoria.lista_productos_subcategoria',compact('categoria','subcategoria'));
+    public function porSubCategoria($subcategoria){
+        $productos = DB::table('productos')->where('subcategoria_id','=',$subcategoria->id);
+        return view('categoria.lista_productos_subcategoria',compact('subcategoria'));
     }
 
     //preguntar 
-    public function search(){
-
+    public function search($nombre){
+        $producto = DB::table('productos')->where('productos.nombre','like','%'.$nombre.'%');
+        //queda en proceso
+        return view('');
     }
 
     /**

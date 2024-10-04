@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('imagen');
             $table->boolean('activo');
             $table->unsignedBigInteger('marca_id');
-            $table->unsignedBigInteger('categoria_id');
-            $table->foreign('marca_id')->references('id')->on('marcas');
-            $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->unsignedBigInteger('subcategoria_id');
             $table->timestamps();
-    
+
+            $table->foreign('marca_id')->references('id')->on('marcas');
+            $table->foreign('subcategoria_id')->references('id')->on('sub_categorias');
         });
     }
 
