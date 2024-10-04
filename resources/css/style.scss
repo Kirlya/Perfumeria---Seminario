@@ -1,0 +1,9 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+*{
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: $indigo-400;
+}

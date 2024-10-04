@@ -18,6 +18,21 @@ class ProductoController extends Controller
         return view('productos.index',compact('products'));
     }
 
+    public function porCategoria($categoria){
+        $productos = DB::select('select * from productos where ');
+        return view('categoria.lista_productos_categoria',compact('categoria'));
+    }
+
+    public function porSubCategoria($categoria,$subcategoria){
+        $productos = DB::select('select * from productos where ');
+        return view('categoria.lista_productos_subcategoria',compact('categoria','subcategoria'));
+    }
+
+    //preguntar 
+    public function search(){
+
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -55,6 +70,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
+        //Consultar a futuro porsi esta bien el direccionamiento
         return view('producto.show',compact('producto'));
     }
 

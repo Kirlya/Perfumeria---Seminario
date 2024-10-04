@@ -17,6 +17,12 @@ class UsuarioController extends Controller
         return view ('login.index',compact('user'));
     }
 
+
+    public function login()
+    {
+        return view('login.login');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
