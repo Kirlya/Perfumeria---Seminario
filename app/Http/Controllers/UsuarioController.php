@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class UsuarioController extends Controller
 {
@@ -23,12 +25,40 @@ class UsuarioController extends Controller
         return view('login.login');
     }
 
+    public function verificarlogin(Request $request)
+    {
+        $contraseña = DB::table('usuarios')->where('email','=',$request->get('email'))->value('contraseña');
+
+        if($contraseña == $request->get('password')){
+            return view('index');
+        }
+        else{
+            return view('login.login');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        // ?? Sign up
+        $validardatos = $request->validate(['nombre' => ['required', 'string', 'max:30'],
+            'apellido' => ['required','string','max:30'],
+            'telefono' => ['required','string','max:20'],
+            'email' => ['required', 'string', 'email', 'max:40', 'unique:usuarios'],
+            'contraseña' => ['required', 'string', 'min:8', 'confirmed']]);
+        
+
+        $usuario = new Usuario();
+        $usuario->nombre = $validardatos['nombre'];
+        $usuario->apellido = $validardatos['apellido'];
+        $usuario->email = $validardatos['email'];
+        $usuario->telefono = $validardatos['telefono'];
+        $usuario->contraseña = Hash::make($validardatos['contraseña']);
+        $usuario->activo = true;
+
+        $usuario->save();
+        return view('login.login');
     }
 
     /**

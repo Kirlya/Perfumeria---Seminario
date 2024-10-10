@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductoController extends Controller
 {
@@ -29,10 +31,7 @@ class ProductoController extends Controller
         return view('categoria.lista_productos_categoria',compact('categoria'));
     }
 
-    public function porSubCategoria($subcategoria){
-        $productos = DB::table('productos')->where('subcategoria_id','=',$subcategoria->id);
-        return view('categoria.lista_productos_subcategoria',compact('subcategoria'));
-    }
+    
 
     //preguntar 
     public function search($nombre){

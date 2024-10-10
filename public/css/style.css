@@ -11864,5 +11864,13 @@ nav {
 }
 
 
+.form-container{
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  height: 60%;
+  width: 40%;
+}
+
 
 /*# sourceMappingURL=index.css.map */
