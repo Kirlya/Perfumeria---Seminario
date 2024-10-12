@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SubCategoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubCategoriaController extends Controller
 {
@@ -18,7 +19,7 @@ class SubCategoriaController extends Controller
     }
 
     public function porSubCategoria($subcategoria){
-        $productos = DB::table('productos')->where('subcategoria_id','=',$subcategoria->id);
+        $productos = DB::table('productos')->where('subcategoria_id','=',$subcategoria->id)->get();
         return view('categoria.lista_productos_subcategoria',compact('subcategoria'));
     }
 

@@ -7,7 +7,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/',[App\Http\Controllers\UsuarioController::class, 'index'])->name('home');
+
+//Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 //redireccionamiento exitoso a la view de carpeta login - views/login/login.blade.php
 Route::get('/login', [App\Http\Controllers\UsuarioController::class, 'login'])->name('login');

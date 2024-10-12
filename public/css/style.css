@@ -11859,10 +11859,21 @@ nav {
   padding-left: 1%;
 }
 
+.violeta{
+  background-color: rgb(132.6, 63.8, 244.6);
+}
+
 #login-icon{
   margin:0.8em;
 }
 
+#form-back{
+  margin: 1%;
+}
+
+body{
+  overflow: hidden;
+}
 
 .form-container{
   position: absolute;

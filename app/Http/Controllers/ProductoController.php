@@ -35,7 +35,7 @@ class ProductoController extends Controller
 
     //preguntar 
     public function search($nombre){
-        $producto = DB::table('productos')->where('productos.nombre','like','%'.$nombre.'%');
+        $producto = DB::table('productos')->where('productos.nombre','like','%'.$nombre.'%')->get();
         //queda en proceso
         return view('');
     }

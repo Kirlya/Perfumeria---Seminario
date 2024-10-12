@@ -16,7 +16,8 @@ class UsuarioController extends Controller
     {
         $user = auth()->user();
         //mostrar datos de el usuario logeado
-        return view ('login.index',compact('user'));
+        return view ('index');
+        //return view ('login.index',compact('user'));
     }
 
 

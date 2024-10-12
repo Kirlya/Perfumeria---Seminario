@@ -11,31 +11,35 @@
     <title>Perfumeria</title>
 </head>
 <body>
+@php
+  use Illuminate\Support\Facades\DB;
+  $categorias = DB::table('categorias')->get();  
+@endphp
+
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Perfumeria</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              @foreach ($categorias as $categoria)
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Productos
+                  {{ $categoria->nombre }}
                 </a>
+                @php
+                  $subcategorias = DB::table('sub_categorias')->where('categoria_id','=',$categoria->id)->get();
+                @endphp
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  @foreach ($subcategorias as $subcategoria)
+                  <li><a class="dropdown-item" href="#">{{ $subcategoria->nombre }}</a></li>
+                  @endforeach
                 </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Ofertas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contacto</a>
-              </li>
+              @endforeach
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">

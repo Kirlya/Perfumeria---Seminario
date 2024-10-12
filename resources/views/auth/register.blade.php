@@ -17,6 +17,9 @@
     }
 </style>
 <body>
+    <div id="form-back">
+        <a href="{{ route('login') }}"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #000000;"></i></a>
+    </div>
     <div class="container form-container">
         <h1>Perfumeria Login</h1>
         <form action="{{ route('register') }}" method="POST">
