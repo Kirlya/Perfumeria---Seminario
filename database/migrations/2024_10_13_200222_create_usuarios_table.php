@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('email',40)->unique();
             $table->string('contraseña',20);
             $table->boolean('activo');
+            $table->unsignedBigInteger('roles_id');
             $table->timestamps();
+
+            $table->foreign('roles_id')->references('id')->on('roles');
         });
     }
 

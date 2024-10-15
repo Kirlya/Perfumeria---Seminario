@@ -13,10 +13,10 @@ class Usuario extends Model
     protected $table = 'Usuarios';
 
     protected $fillable = [
-        'nombre','apellido','email','contraseña','telefono'
+        'nombre','apellido','email','contraseña','telefono','roles_id'
     ];
 
     protected $hidden = [
-        'contraseña','telefono','activo'
+        'contraseña','telefono','activo','roles_id'
     ];
 }

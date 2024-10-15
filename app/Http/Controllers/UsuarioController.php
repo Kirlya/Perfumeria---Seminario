@@ -55,8 +55,9 @@ class UsuarioController extends Controller
         $usuario->apellido = $validardatos['apellido'];
         $usuario->email = $validardatos['email'];
         $usuario->telefono = $validardatos['telefono'];
-        $usuario->contraseña = Hash::make($validardatos['contraseña']);
+        $usuario->contraseña = $validardatos['contraseña'];
         $usuario->activo = true;
+        $usuario->roles_id = 3;
 
         $usuario->save();
         return view('login.login');
