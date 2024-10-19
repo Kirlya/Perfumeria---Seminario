@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
         $operador = Role::create(['name' => 'Operador']);
         $usuario = Role::create(['name' => 'Usuario']);
         $visitante = Role::create(['name' => 'Visitante']);
-
+        
         $admin->givePermissionTo([
             'crear-rol',
             'editar-rol',
@@ -39,11 +39,14 @@ class RoleSeeder extends Seeder
             'crear-etiqueta',
             'editar-etiqueta',
             'deshabilitar-etiqueta',
-            'ver-ventas'
+            'ver-ventas',
+            'crear-rol',
+            'editar-rol',
+            'deshabilitar-rol'
         ]);
 
         $operador->givePermissionTo([
-            'editar-producto','editar-categoria','editar-etiqueta','editar-subcategoria',
+            'editar-producto','editar-categoria','editar-etiqueta','editar-subcategoria', 'ver-ventas'
         ]);
 
         $usuario->givePermissionTo([

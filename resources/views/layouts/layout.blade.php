@@ -41,13 +41,30 @@
               </li>
               @endforeach
             </ul>
+
+            @can('editar-producto')
+                <button class="btn btn-dark"><a href="#" target="" class="text-decoration:none">Administrar</a> </button>  
+            @else
+                <button>Problema</button>
+            @endcan
+            @if (auth()->user())
+                <button><a class="btn btn-dark" href="{{route('logout')}}" style="text-decoration:none">Logout</a></button>
+            @endif
+          
+
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-dark" type="submit"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i></button>
             </form>
-            <a id="login-icon" href="{{ route('login') }}">
+            <a class="icons" href="{{ route('login') }}">
                 <i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i>
             </a> 
+            <a href="" class="icons">
+              <i class="fa-solid fa-heart fa-lg" style="color: #ffffff;"></i>
+            </a>
+            <a href="" class="icons">
+              <i class="fa-solid fa-cart-shopping fa-lg" style="color: #ffffff;"></i>
+            </a>
           </div>
         </div>
       </nav>

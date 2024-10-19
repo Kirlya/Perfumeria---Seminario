@@ -22,7 +22,7 @@
     </div>
     <div class="container form-container">
         <h1>Perfumeria Login</h1>
-        <form action="{{ route('register') }}" method="POST">
+        <form action="{{ route('registrar') }}" method="POST">
             @csrf
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
@@ -105,7 +105,7 @@
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Register') }}
+                    Registrar
                 </button>
             </div>
         </div>

@@ -46,7 +46,7 @@
         </div>
         <div class="options-form">
             <a href="">Olvidaste tu contraseña?</a>
-            <button><a style="text-decoration:none;color:black;" href="{{route('register')}}">Crear Usuario</a></button>
+            <button><a style="text-decoration:none;color:black;" href="{{route('menu-registrar')}}">Crear Usuario</a></button>
         </div>
         
     </div>

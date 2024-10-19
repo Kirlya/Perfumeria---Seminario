@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\UsuarioController;
+use Illuminate\Http\Request;
+
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Envelope;
 
 class RegisterController extends Controller
 {
@@ -41,6 +47,10 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+
+    public function index(){
+        return view('auth.register');
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -77,4 +87,37 @@ class RegisterController extends Controller
             'activo' => true,
         ]);
     } */
+
+    public function create(Request $request)
+    {
+        $validardatos = $request->validate(['nombre' => ['required', 'string', 'max:30'],
+            'apellido' => ['required','string','max:30'],
+            'telefono' => ['required','string','max:20'],
+            'email' => ['required', 'string', 'email', 'max:40', 'unique:usuarios'],
+            'contraseña' => ['required', 'string', 'min:8', 'confirmed']]);
+        
+
+        $usuario = new Usuario();
+        $usuario->nombre = $validardatos['nombre'];
+        $usuario->apellido = $validardatos['apellido'];
+        $usuario->email = $validardatos['email'];
+        $usuario->telefono = $validardatos['telefono'];
+        $usuario->contraseña = Hash::make($validardatos['contraseña']);
+        $usuario->activo = true;
+        $usuario->roles_id = 3;
+    
+        $usuario->assignRole('Usuario');
+
+        $usuario->save();
+
+        $data = array(
+            'nombre' => $validardatos['nombre'],
+            'email' => $validardatos['email'],
+            'asunto' => 'Perfumeria: Creacion Usuario'
+        );
+
+        Mail::to($data['email'])->send(new SendMail($data));
+
+        return view('login.login');
+    }
 }

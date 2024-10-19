@@ -37,7 +37,10 @@ class PermissionSeeder extends Seeder
             'editar-etiqueta',
             'deshabilitar-etiqueta',
             'realizar-compra',
-            'ver-ventas'
+            'ver-ventas',
+            'crear-rol',
+            'editar-rol',
+            'deshabilitar-rol'
          ];
  
           // Looping and Inserting Array's Permissions into Permission Table

@@ -12,6 +12,17 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+        $this->middleware('auth');
+        $this->middleware('permission:ver-producto|crear-producto|editar-producto|deshabilitar-producto', ['only' => ['index','show']]);
+        $this->middleware('permission:crear-producto', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-product', ['only' => ['edit','update']]);
+        $this->middleware('permission:deshabilitar-product', ['only' => ['destroy']]);
+     }
+
+
     public function index()
     {
         // falta segun una categoria;

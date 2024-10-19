@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('apellido',30);
             $table->string('telefono',20);
             $table->string('email',40)->unique();
-            $table->string('contraseña',20);
+            $table->string('contraseña',255);
             $table->boolean('activo');
             $table->unsignedBigInteger('roles_id');
             $table->timestamps();
