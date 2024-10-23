@@ -17,11 +17,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call(
-            [PermissionSeeder::class],
-            [RoleSeeder::class],
-            [UsuarioSeeder::class],
-            [CategoriaSeeder::class],
-            [SubCategoriaSeeder::class]
+            [PermissionSeeder::class,
+            RoleSeeder::class,
+            UsuarioSeeder::class,
+            CategoriaSeeder::class,
+            SubCategoriaSeeder::class,
+            ]
         );
     }
 }

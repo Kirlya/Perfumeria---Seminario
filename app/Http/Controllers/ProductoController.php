@@ -13,13 +13,15 @@ class ProductoController extends Controller
      * Display a listing of the resource.
      */
 
+     protected $redirectTo = '/';
+
      public function __construct()
      {
         $this->middleware('auth');
         $this->middleware('permission:ver-producto|crear-producto|editar-producto|deshabilitar-producto', ['only' => ['index','show']]);
-        $this->middleware('permission:crear-producto', ['only' => ['create','store']]);
-        $this->middleware('permission:editar-product', ['only' => ['edit','update']]);
-        $this->middleware('permission:deshabilitar-product', ['only' => ['destroy']]);
+        $this->middleware('permission:crear-producto', ['only' => ['create','store','menu','menuProductos']]);
+        $this->middleware('permission:editar-producto', ['only' => ['edit','update','menu','menuProductos']]);
+        $this->middleware('permission:deshabilitar-producto', ['only' => ['destroy','menu','menuProductos']]);
      }
 
 
@@ -42,7 +44,10 @@ class ProductoController extends Controller
         return view('categoria.lista_productos_categoria',compact('categoria'));
     }
 
-    
+    public function menu(){
+        return view('admin.index');
+    }
+
 
     //preguntar 
     public function search($nombre){
@@ -56,9 +61,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $producto = new Producto();
-        $categoria = Categoria::get();
-        return view('producto.create',compact('producto','categoria'));
+        return view('admin.crear-producto');
     }
 
     /**
@@ -80,7 +83,7 @@ class ProductoController extends Controller
             $producto->imagen = '';
         }
         $producto->save();
-        return redirect()->route('producto.index');
+        return redirect()->route('admin.producto');
     }
 
     /**
@@ -132,5 +135,9 @@ class ProductoController extends Controller
         //$producto->delete();
         return redirect()->route('producto.index')
         ->with('alert' ,'Producto eliminado exitosamente.');
+    }
+
+    public function menuProductos(){
+        return view('admin.producto');
     }
 }

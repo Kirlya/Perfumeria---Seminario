@@ -43,7 +43,7 @@
             </ul>
 
             @can('editar-producto')
-                <button class="btn btn-dark"><a href="#" target="" class="text-decoration:none">Administrar</a> </button>  
+                <button class="btn btn-dark"><a href="{{ route('menu-admin') }}" target="" class="text-decoration:none">Administrar</a> </button>  
             @else
                 <button>Problema</button>
             @endcan

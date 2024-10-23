@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('index');
@@ -37,9 +35,23 @@ Route::get('/registrar',[App\Http\Controllers\Auth\RegisterController::class,'in
 
 Route::post('/registrar',[App\Http\Controllers\Auth\RegisterController::class,'create'])->name('registrar');
 
+Route::get('/admin',[App\Http\Controllers\ProductoController::class,'menu'])->name('menu-admin');
+
+Route::get('/admin/productos',[App\Http\Controllers\ProductoController::class,'menuProductos'])->name('admin-productos');
+
+Route::get('/admin/crear/producto',[App\Http\Controllers\ProductoController::class,'create'])->name('crear-producto');
+
+Route::post('/admin/crear/producto',[App\Http\Controllers\ProductoController::class,'store'])->name('crear-producto');
+
+Route::get('admin/marcas',[App\Http\Controllers\MarcaController::class,'index'])->name('admin-marcas');
+
+Route::get('admin/crear/marcas',[App\Http\Controllers\MarcaController::class,'create'])->name('crear-marca');
+
+Route::post('admin/crear/marcas',[App\Http\Controllers\MarcaController::class,'store'])->name('crear-marca');
+
 
 Route::resources([
     'roles' => RoleController::class,
     'usuario' => UsuarioController::class,
-    'products' => ProductController::class,
+    'products' => ProductoController::class,
 ]); 

@@ -27,26 +27,31 @@ class RoleSeeder extends Seeder
             'editar-usuario',
             'deshabilitar-usuario',
             'ver-producto',
+            'ver-productos',
             'crear-producto',
             'editar-producto',
             'deshabilitar-producto',
+            'ver-categorias',
             'crear-categoria',
             'editar-categoria',
             'deshabilitar-categoria',
+            'ver-subcategorias',
             'crear-subcategoria',
             'editar-subcategoria',
             'deshabilitar-subcategoria',
+            'ver-etiquetas',
             'crear-etiqueta',
             'editar-etiqueta',
             'deshabilitar-etiqueta',
             'ver-ventas',
-            'crear-rol',
-            'editar-rol',
-            'deshabilitar-rol'
+            'ver-marcas',
+            'crear-marca',
+            'editar-marca',
+            'deshabilitar-marca',
         ]);
 
         $operador->givePermissionTo([
-            'editar-producto','editar-categoria','editar-etiqueta','editar-subcategoria', 'ver-ventas'
+            'ver-productos','ver-producto','editar-producto','ver-categorias','editar-categoria','ver-etiquetas','editar-etiqueta','ver-subcategorias','editar-subcategoria', 'ver-ventas','ver-marcas'
         ]);
 
         $usuario->givePermissionTo([

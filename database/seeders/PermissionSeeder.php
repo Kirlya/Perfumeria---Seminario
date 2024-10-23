@@ -24,23 +24,28 @@ class PermissionSeeder extends Seeder
             'editar-usuario',
             'deshabilitar-usuario',
             'ver-producto',
+            'ver-productos',
             'crear-producto',
             'editar-producto',
             'deshabilitar-producto',
+            'ver-categorias',
             'crear-categoria',
             'editar-categoria',
             'deshabilitar-categoria',
+            'ver-subcategorias',
             'crear-subcategoria',
             'editar-subcategoria',
             'deshabilitar-subcategoria',
+            'ver-etiquetas',
             'crear-etiqueta',
             'editar-etiqueta',
             'deshabilitar-etiqueta',
             'realizar-compra',
             'ver-ventas',
-            'crear-rol',
-            'editar-rol',
-            'deshabilitar-rol'
+            'ver-marcas',
+            'crear-marca',
+            'editar-marca',
+            'deshabilitar-marca'
          ];
  
           // Looping and Inserting Array's Permissions into Permission Table

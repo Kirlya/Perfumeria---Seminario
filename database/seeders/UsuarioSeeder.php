@@ -37,6 +37,30 @@ class UsuarioSeeder extends Seeder
                 'roles_id' => 1
             ]);
             $superAdmin->assignRole('Administrador');
+
+            $operador = Usuario::create([
+                'nombre' => 'Sr',
+                'apellido' => 'Operario',
+                'telefono' => '3871230142',
+                'email' => 'operador@test.com',
+                'contraseña' => Hash::make('12345678'),
+                'activo' => 1,
+                'roles_id' => 2
+            ]);
+            $operador->assignRole('Operador');
+
+
+            $usuario = Usuario::create([
+                'nombre' => 'Mr',
+                'apellido' => 'Usuario',
+                'telefono' => '3871234567',
+                'email' => 'usuario@test.com',
+                'contraseña' => Hash::make('12345678'),
+                'activo' => 1,
+                'roles_id' => 3
+            ]);
+            $usuario->assignRole('Usuario');
+
             //$usuario->assignRole('Administrador');
         /*
         DB::table('usuarios')->insert([

@@ -12,18 +12,31 @@ class MarcaController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+        $this->middleware('auth');
+        $this->middleware('permission:crear-marca', ['only' => ['index','create','store']]);
+        $this->middleware('permission:editar-marca', ['only' => ['index','edit','update']]);
+        $this->middleware('permission:deshabilitar-marca', ['only' => ['index','destroy']]);
+     }
+
     public function index()
     {
-        return view('marca.index');
+        return view('admin.marca');
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    public function menuMarcas(){
+        return view('admin.marca');
+    }
+
     public function create()
     {
-        $marca = new Marca();
-        return view('marca.create',compact('marca'));
+        return view('admin.crear-marca');
     }
 
     /**
@@ -33,8 +46,11 @@ class MarcaController extends Controller
     {
         $marca = new Marca();
         $marca->nombre = $request->get('nombre');
+        
+        //Evitar Duplicado
+        
         $marca->save();
-        return redirect()->route('marca.index');
+        return redirect()->route('admin-marcas');
     }
 
     /**
