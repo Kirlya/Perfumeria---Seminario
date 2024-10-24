@@ -74,16 +74,37 @@ class ProductoController extends Controller
         $producto->descripcion = $request->get('descripcion');
         $producto->precio = $request->get('precio');
         $producto->cantidad = $request->get('cantidad');
-        $producto->marca_id = $request->get('marca_id');
-        $producto->categoria_id = $request->get('categoria_id');
-        if($request->hasFile('imagen')){
-            $img_url = $request->file('imagen')->store('public/producto');
-            $producto->imagen = asset(str_replace('public','storage',$img_url));
+        
+
+        $marca = DB::table('marcas')->where('marcas.nombre','=',$request->get('marca'))->value('id');
+
+        $producto->activo = 1;
+
+        $producto->marca_id = $marca;
+
+        $sub = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('subcategoria'))->value('id');
+        $producto->subcategoria_id = $sub;
+        /*
+        if($request->get('imagen')){
+            $path = 'public/img/';
+            $img_url = $path . $request->get('imagen');
+            $producto->imagen = $img_url;
         }else{
-            $producto->imagen = '';
+            $producto->imagen = 'No se encontro';
+        }*/
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'public/img/';
+            $name = time() . '-' . $file->getClientOriginalName();
+            $upload = $request->file('imagen')->move($destinationPath,$name);
+            $producto->imagen = $destinationPath . $name;
+        }else{
+            $producto->imagen = 'No se encontro';
         }
+
         $producto->save();
-        return redirect()->route('admin.producto');
+        return redirect()->route('admin-productos');
     }
 
     /**
@@ -117,8 +138,12 @@ class ProductoController extends Controller
         $producto->marca_id = $request->get('marca_id');
         $producto->categoria_id = $request->get('categoria_id');
         if($request->hasFile('imagen')){
-            $img_url = $request->file('imagen')->store('public/producto');
-            $producto->imagen = asset(str_replace('public','storage',$img_url));
+            $path = 'public/img';
+            $image = $request->file('imagen');
+            $image_name = $image->getClientOriginalName();
+            $img_url = $request->file('imagen')->store($path,$image_name);
+            $producto->imagen = $img_url;
+            //$producto->imagen = asset(str_replace('public','img',$img_url));
         }else{
             $producto->imagen = '';
         }

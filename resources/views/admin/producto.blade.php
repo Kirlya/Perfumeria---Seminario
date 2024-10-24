@@ -24,8 +24,8 @@
             <tbody>
                 @foreach ($productos as $producto)
                     @php
-                    $marca = DB::table('productos')->join('marcas','productos.marca_id','=','marcas.id')->where('productos.id','=',$producto->id)->value('marcas.nombre')->first();
-                    $subcategoria = DB::table('productos')->join('sub_categorias','productos.subcategoria_id','=','sub_categorias.id')->where('productos.id','=',$producto->id)->value('sub_categorias.nombre')->first();
+                    $marca = DB::table('productos')->join('marcas','productos.marca_id','=','marcas.id')->where('productos.id','=',$producto->id)->value('marcas.nombre');
+                    $subcategoria = DB::table('productos')->join('sub_categorias','productos.subcategoria_id','=','sub_categorias.id')->where('productos.id','=',$producto->id)->value('sub_categorias.nombre');
                     @endphp
                     <tr>
                         <th scope="row">{{$producto->id}}</th>
@@ -33,8 +33,12 @@
                         <td>{{ $producto->descripcion }}</td>
                         <td>{{ $producto->precio }}</td>
                         <td>{{ $producto->cantidad }}</td>
-                        <td>{{ $producto->imagen }}</td>
+                        <td>
+                            
+                            <img src="{{ asset($producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid" style="width: 150px;">
+                        </td>
                         <td>{{ $producto->activo }}</td>
+                        
                         <td>{{ $marca }}</td>
                         <td>{{ $subcategoria }}</td>
                     </tr>

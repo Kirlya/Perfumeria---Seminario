@@ -12,9 +12,7 @@ class EtiquetaController extends Controller
      */
     public function index()
     {
-        $etiqueta = DB::select('select * from etiquetas');
-
-        return view('etiqueta.index',compact('etiquetas'));
+        return view('admin.etiqueta');
     }
 
     /**
@@ -22,8 +20,7 @@ class EtiquetaController extends Controller
      */
     public function create()
     {
-        $etiqueta = new Etiqueta();
-        return view('etiqueta.create',compact('etiqueta'));
+        return view('admin.crear-etiqueta');
     }
 
     /**
@@ -35,7 +32,7 @@ class EtiquetaController extends Controller
         $etiqueta->nombre = $request->get('nombre');
         $etiqueta->save();
 
-        return redirect()->route('etiqueta.index');
+        return redirect()->route('admin-etiquetas');
     }
 
     /**
@@ -62,7 +59,7 @@ class EtiquetaController extends Controller
         $etiqueta->nombre = $request->get('nombre');
         $etiqueta->update();
 
-        return redirect()->route('categoria.index');
+        return redirect()->route('admin-etiquetas');
     }
 
     /**

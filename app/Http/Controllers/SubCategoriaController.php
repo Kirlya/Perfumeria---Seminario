@@ -13,9 +13,7 @@ class SubCategoriaController extends Controller
      */
     public function index()
     {
-        $subcategorias = DB::table('subcategorias')->get();
-
-        return view('subcategorias.index',compact('subcategorias'));
+        return view('admin.subcategoria');
     }
 
     public function porSubCategoria($subcategoria){
@@ -28,8 +26,7 @@ class SubCategoriaController extends Controller
      */
     public function create()
     {
-        $subcategorias = new SubCategoria();
-        
+       return view('admin.crear-subcategoria');     
     }
 
     /**
@@ -37,7 +34,11 @@ class SubCategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $subcategoria = new SubCategoria();
+        $subcategoria->nombre = $request->get('nombre');
+        $subcategoria->save();
+
+        return redirect()->route('admin-subcategorias');
     }
 
     /**

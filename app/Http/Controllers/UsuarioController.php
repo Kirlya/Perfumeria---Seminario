@@ -29,8 +29,9 @@ class UsuarioController extends Controller
      public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:crear-usuario|editar-usuario|deshabilitar-usuario', ['only' => ['index','show']]);
-        $this->middleware('permission:crear-usuario', ['only' => ['create','store']]);
+        $this->middleware('permission:crear-usuario|editar-usuario|deshabilitar-usuario', ['only' => ['index']]);
+        $this->middleware('permission:ver-usuario', ['only' => ['show']]);
+        $this->middleware('permission:crear-usuario', ['only' => ['create','store','crearUsuario']]);
         $this->middleware('permission:editar-usuario', ['only' => ['edit','update']]);
         $this->middleware('permission:deshabilitar-usuario', ['only' => ['destroy']]);
     } 
@@ -38,9 +39,10 @@ class UsuarioController extends Controller
     public function index()
     {
         //mostrar datos de el usuario logeado
-        return view ('usuarios.index');
+        return view ('admin.usuario');
         //return view ('login.index',compact('user'));
     }
+
 
 
     public function login()
@@ -140,6 +142,10 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    public function crearUsuario(){
+        return view('admin.crear-usuario');
+    }
+
     public function store(Request $request)
     {
         // No

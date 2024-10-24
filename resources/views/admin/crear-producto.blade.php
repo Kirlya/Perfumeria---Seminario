@@ -13,8 +13,9 @@
 <body>
     <a href="{{route('admin-productos')}}"><i class="fa-solid fa-arrow-left fa-2xl"></i></a>
     <div class="container form-container">
+        
+        <form action="{{route('crear-producto')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <form action="{{route('crear-producto')}}" method="POST">
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
 
@@ -132,5 +133,6 @@
     </div>
 
     </form>
+    
 </body>
 </html>

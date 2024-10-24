@@ -12,7 +12,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.categoria');
     }
 
     /**
@@ -20,9 +20,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        $categoria = new Categoria();
-
-        return view('categoria.create',compact('categoria'));
+        return view('admin.crear-categoria');
     }
 
     /**
@@ -34,7 +32,7 @@ class CategoriaController extends Controller
         $categoria->nombre = $request->get('nombre');
         $categoria->save();
 
-        return redirect()->route('categoria.index');
+        return redirect()->route('admin-categorias');
     }
 
     /**

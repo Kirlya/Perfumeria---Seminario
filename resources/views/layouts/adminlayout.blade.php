@@ -19,13 +19,13 @@
         </div>
         <div>
             <ul class="list-group">
-                <li class="list-group-item"><a href="">Usuarios</a></li>
+                <li class="list-group-item"><a href="{{route('admin-usuarios')}}">Usuarios</a></li>
                 <li class="list-group-item"><a href="{{route('admin-productos')}}">Productos</a></li>
                 <li class="list-group-item"><a href="">Ventas</a></li>
-                <li class="list-group-item"><a href="">Categorias</a></li>
-                <li class="list-group-item"><a href="">SubCategorias</a></li>
+                <li class="list-group-item"><a href="{{route('admin-categorias')}}">Categorias</a></li>
+                <li class="list-group-item"><a href="{{route('admin-subcategorias')}}">SubCategorias</a></li>
                 <li class="list-group-item"><a href="{{route('admin-marcas')}}">Marcas</a></li>
-                <li class="list-group-item"><a href="">Etiquetas</a></li>
+                <li class="list-group-item"><a href="{{route('admin-etiquetas')}}">Etiquetas</a></li>
             </ul>
         </div>
     </div>
