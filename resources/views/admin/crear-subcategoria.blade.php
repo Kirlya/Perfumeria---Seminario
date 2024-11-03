@@ -14,13 +14,13 @@
     <a href="{{route('admin-subcategorias')}}"><i class="fa-solid fa-arrow-left fa-2xl"></i></a>
     <div class="container form-container">
         <h2>SubCategoria</h2>
-        <form action="{{route('crear-subcategoria')}}" method="POST">
+        <form action="{{ $subcategoria->id? route('subcategoria.update') : route('subcategoria.store')}}" method="POST">
         @csrf
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
 
             <div class="col-md-6">
-                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
+                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre' , optional($subcategoria)->nombre) }}" required autocomplete="nombre" autofocus>
 
                 @error('nombre')
                     <span class="invalid-feedback" role="alert">
@@ -40,7 +40,7 @@
             <div class="col-md-6">
                 <select name="categoria" id="categoria" value="{{old('categoria')}}" required>
                     @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->nombre }}">{{ $categoria->nombre }}</option>
+                        <option {{ $subcategoria->categoria_id && $subcategoria->categoria_id == $categoria->id ? 'selected': ''}} value="{{ $categoria->nombre }}">{{ $categoria->nombre }}</option>
                     @endforeach
                 </select>
             </div>
@@ -50,7 +50,7 @@
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    Crear
+                    {{$subcategoria->id? 'Actualizar' : 'Crear'}}
                 </button>
             </div>
         </div>

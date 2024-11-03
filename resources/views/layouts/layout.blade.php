@@ -13,6 +13,7 @@
 <body>
 @php
   use Illuminate\Support\Facades\DB;
+  use App\Models\SubCategoria;
   $categorias = DB::table('categorias')->get();  
 @endphp
 
@@ -35,7 +36,7 @@
                 @endphp
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                   @foreach ($subcategorias as $subcategoria)
-                  <li><a class="dropdown-item" href="#">{{ $subcategoria->nombre }}</a></li>
+                    <li><a class="dropdown-item" href="{{route('porsubcategoria', ['categoria_nombre' => $categoria->nombre , 'subcategoria_nombre' => $subcategoria->nombre])}}">{{ $subcategoria->nombre }}</a></li>
                   @endforeach
                 </ul>
               </li>
@@ -44,8 +45,6 @@
 
             @can('editar-producto')
                 <button class="btn btn-dark"><a href="{{ route('menu-admin') }}" target="" class="text-decoration:none">Administrar</a> </button>  
-            @else
-                <button>Problema</button>
             @endcan
             @if (auth()->user())
                 <button><a class="btn btn-dark" href="{{route('logout')}}" style="text-decoration:none">Logout</a></button>

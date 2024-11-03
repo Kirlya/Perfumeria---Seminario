@@ -10,9 +10,14 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>Perfumeria</title>
 </head>
+<style>
+    body{
+        overflow-y: scroll;
+    }
+</style>
 <body>
 <div class="row">
-    <div id="menu" class="col-md-4">
+    <div id="menu" class="col-md-3">
         <!-- Menu opciones -->
         <div id="logo">
             <span>Logo</span>
@@ -29,7 +34,7 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
         <h1>Menu Administración</h1>
         <!-- Agregar iconos para volver a la pagina-->
         @yield('content')

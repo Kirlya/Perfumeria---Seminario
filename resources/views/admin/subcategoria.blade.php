@@ -5,7 +5,7 @@
         $subcategorias = DB::table('sub_categorias')->get();
     @endphp
     <h2>SubCategorias</h2>
-    <button class="btn btn-dark"><a href="{{route('crear-subcategoria')}}" style="text-decoration: none;color:white">Crear SubCategoria</a></button>
+    <button class="btn btn-dark"><a href="{{route('subcategoria.create')}}" style="text-decoration: none;color:white">Crear SubCategoria</a></button>
     <div id="tabla-admin">
         <table class="table">
             <thead>

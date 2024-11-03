@@ -5,7 +5,7 @@
         $etiquetas = DB::table('etiquetas')->get();
     @endphp
     <h2>Etiquetas</h2>
-    <button class="btn btn-dark"><a href="{{route('crear-etiqueta')}}" style="text-decoration: none;color:white">Crear Etiqueta</a></button>
+    <button class="btn btn-dark"><a href="{{route('etiqueta.create')}}" style="text-decoration: none;color:white">Crear Etiqueta</a></button>
     <div id="tabla-admin">
         <table class="table">
             <thead>

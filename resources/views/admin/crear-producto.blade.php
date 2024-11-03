@@ -14,13 +14,13 @@
     <a href="{{route('admin-productos')}}"><i class="fa-solid fa-arrow-left fa-2xl"></i></a>
     <div class="container form-container">
         
-        <form action="{{route('crear-producto')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{$producto->id? route('producto.update') : route('producto.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
 
             <div class="col-md-6">
-                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
+                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre', optional($producto)->nombre) }}" required autocomplete="nombre" autofocus>
 
                 @error('nombre')
                     <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
             <label for="descripcion" class="col-md-4 col-form-label text-md-end">Descripcion:</label>
 
             <div class="col-md-6">
-                <input id="descripcion" type="text" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" value="{{ old('descripcion') }}" autocomplete="descripcion" autofocus>
+                <input id="descripcion" type="text" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" value="{{ old('descripcion', optional($producto)->descripcion) }}" autocomplete="descripcion" autofocus>
             </div>
         </div>
 
@@ -42,7 +42,7 @@
             <label for="precio" class="col-md-4 col-form-label text-md-end">Precio:</label>
 
             <div class="col-md-6">
-                <input id="precio" type="number" class="form-control @error('precio') is-invalid @enderror" name="precio" value="{{ old('precio') }}" required autocomplete="precio" autofocus>
+                <input id="precio" type="number" class="form-control @error('precio') is-invalid @enderror" name="precio" value="{{ old('precio', optional($producto)->precio ) }}" required autocomplete="precio" autofocus>
 
                 @error('precio')
                     <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
             <label for="cantidad" class="col-md-4 col-form-label text-md-end">Cantidad:</label>
 
             <div class="col-md-6">
-                <input id="cantidad" type="number" class="form-control @error('nombre') is-invalid @enderror" name="cantidad" value="{{ old('cantidad') }}" required autocomplete="cantidad" autofocus>
+                <input id="cantidad" type="number" class="form-control @error('nombre') is-invalid @enderror" name="cantidad" value="{{ old('cantidad', optional($producto)->cantidad ) }}" required autocomplete="cantidad" autofocus>
 
                 @error('cantidad')
                     <span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Imagen:</label>
 
             <div class="col-md-6">
-                <input id="imagen" type="file" class="form-control @error('imagen') is-invalid @enderror" name="imagen" value="{{ old('imagen') }}" accept="image/*" required autocomplete="imagen" autofocus>
+                <input id="imagen" type="file" class="form-control @error('imagen') is-invalid @enderror" name="imagen" value="{{ old('imagen', optional($producto)->imagen ) }}" accept="image/*" required autocomplete="imagen" autofocus>
 
                 @error('imagen')
                     <span class="invalid-feedback" role="alert">
@@ -89,7 +89,7 @@
             <div class="col-md-6">
                 <select name="marca" id="marca" value="{{old('marca')}}" required>
                     @foreach ($marcas as $marca)
-                        <option value="{{ $marca->nombre }}">{{ $marca->nombre }}</option>
+                        <option {{ $producto->marca_id && $producto->marca_id == $marca->id ? 'selected': ''}} value="{{ $marca->nombre }}">{{ $marca->nombre }}</option>
                     @endforeach
                 </select>
                 @error('marca')
@@ -110,7 +110,7 @@
             <div class="col-md-6">
                 <select name="subcategoria" id="subcategoria" value="{{old('Subcategoria')}}" required>
                     @foreach ($subcategorias as $subcategoria)
-                        <option value="{{ $subcategoria->nombre }}">{{ $subcategoria->nombre }}</option>
+                        <option {{ $producto->subcategoria_id && $producto->subcategoria_id == $subcategoria->id ? 'selected': ''}} value="{{ $subcategoria->nombre }}">{{ $subcategoria->nombre }}</option>
                     @endforeach
                 </select>
                 @error('sub')
@@ -124,7 +124,7 @@
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    Crear
+                    {{$producto->id? 'Actualizar' : 'Crear' }}
                 </button>
             </div>
         </div>

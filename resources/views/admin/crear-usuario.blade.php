@@ -22,13 +22,13 @@
     </div>
     <div class="container form-container">
         <h2>Crear Usuario</h2>
-        <form action="{{ route('crear-usuario') }}" method="POST">
+        <form action="{{$usuario->id? route('usuario.update') : route('usuario.store') }}" method="POST">
             @csrf
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
 
             <div class="col-md-6">
-                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
+                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre', optional($usuario)->nombre) }}" required autocomplete="nombre" autofocus>
 
                 @error('nombre')
                     <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
             <label for="apellido" class="col-md-4 col-form-label text-md-end">Apellido:</label>
 
             <div class="col-md-6">
-                <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ old('apellido') }}" required autocomplete="nombre" autofocus>
+                <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ old('apellido', optional($usuario)->apellido) }}" required autocomplete="nombre" autofocus>
 
                 @error('apellido')
                     <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
             <label for="telefono" class="col-md-4 col-form-label text-md-end">Telefono:</label>
 
             <div class="col-md-6">
-                <input id="telefono" type="number" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="telefono">
+                <input id="telefono" type="number" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono', optional($usuario)->telefono) }}" required autocomplete="telefono">
 
                 @error('telefono')
                     <span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
             <label for="email" class="col-md-4 col-form-label text-md-end">Email:</label>
 
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', optional($usuario)->email) }}" required autocomplete="email">
 
                 @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -102,17 +102,21 @@
             </div>
         </div>
 
+        @php
+            $roles = DB::table('roles')->get();
+        @endphp
+
         <div class="row mb-3">
             <label for="rol" class="col-md-4 col-form-label text-md-end">Rol:</label>
 
             <div class="col-md-6">
-                <input id="contraseña" type="password" class="form-control @error('contraseña') is-invalid @enderror" name="contraseña" required autocomplete="contraseña">
-
-                @error('contraseña')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>Las contraseñas no coinciden</strong>
-                    </span>
-                @enderror
+                <select name="rol" id="rol">
+                    @foreach ($roles as $rol)
+                        <option {{$usuario->roles_id && $usuario->roles_id == $rol->id? 'selected' : '' }} value="{{$rol->name}}">
+                            {{$rol->name}}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         
@@ -120,7 +124,7 @@
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    Registrar
+                    {{$usuario->id? 'Editar' : 'Registrar'}}
                 </button>
             </div>
         </div>

@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class SubCategoriaController extends Controller
 {
+
+    public function __construct()
+     {
+        $this->middleware('auth');
+        $this->middleware('permission:ver-subcategorias',['only' => ['index'] ]);
+        $this->middleware('permission:crear-subcategoria', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-subcategoria', ['only' => ['edit','update']]);
+        $this->middleware('permission:deshabilitar-subcategoria', ['only' => ['destroy']]);
+     }
+
     /**
      * Display a listing of the resource.
      */
@@ -26,7 +36,8 @@ class SubCategoriaController extends Controller
      */
     public function create()
     {
-       return view('admin.crear-subcategoria');     
+        $subcategoria = new SubCategoria();
+       return view('admin.crear-subcategoria',compact('subcategoria'));     
     }
 
     /**

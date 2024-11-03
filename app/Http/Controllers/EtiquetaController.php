@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class EtiquetaController extends Controller
 {
+
+    public function __construct()
+     {
+        $this->middleware('auth');
+        $this->middleware('permission:ver-etiquetas',['only' => ['index'] ]);
+        $this->middleware('permission:crear-etiqueta', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-etiqueta', ['only' => ['edit','update']]);
+        $this->middleware('permission:deshabilitar-etiqueta', ['only' => ['destroy']]);
+     }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +30,8 @@ class EtiquetaController extends Controller
      */
     public function create()
     {
-        return view('admin.crear-etiqueta');
+        $etiqueta = new Etiqueta();
+        return view('admin.crear-etiqueta',compact('etiqueta'));
     }
 
     /**

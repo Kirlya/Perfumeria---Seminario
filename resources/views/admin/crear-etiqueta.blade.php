@@ -11,16 +11,16 @@
     <title>Perfumeria</title>
 </head>
 <body>
-    <a href="{{route('admin-etiquetas')}}"><i class="fa-solid fa-arrow-left fa-2xl"></i></a>
+    <a href="{{ route('admin-etiquetas')}}"><i class="fa-solid fa-arrow-left fa-2xl"></i></a>
     <div class="container form-container">
         <h2>Etiqueta</h2>
-        <form action="{{route('crear-etiqueta')}}" method="POST">
+        <form action="{{$etiqueta->id ? route('etiqueta.update',$etiqueta) : route('etiqueta.store')}}" method="POST">
         @csrf
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
 
             <div class="col-md-6">
-                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
+                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre', optional($etiqueta)->nombre) }}" required autocomplete="nombre" autofocus>
 
                 @error('nombre')
                     <span class="invalid-feedback" role="alert">
@@ -33,7 +33,7 @@
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    Crear
+                    {{$etiqueta->id? 'Actualizar' : 'Crear'}}
                 </button>
             </div>
         </div>

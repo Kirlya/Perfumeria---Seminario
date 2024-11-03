@@ -5,7 +5,7 @@
         $marcas = DB::table('marcas')->get();
     @endphp
     <h2>Marcas</h2>
-    <button class="btn btn-dark"><a href="{{route('crear-marca')}}" style="text-decoration: none;color:white">Crear Marca</a></button>
+    <button class="btn btn-dark"><a href="{{route('marca.create')}}" style="text-decoration: none;color:white">Crear Marca</a></button>
     <div id="tabla-admin">
         <table class="table">
             <thead>

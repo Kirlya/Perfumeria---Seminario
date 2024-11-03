@@ -100,6 +100,7 @@ class UsuarioController extends Controller
             'email' => ['required', 'string', 'email', 'max:40', 'unique:usuarios'],
             'contraseña' => ['required', 'string', 'min:8', 'confirmed']]);
         
+        
 
         $usuario = new Usuario();
         $usuario->nombre = $validardatos['nombre'];
@@ -143,12 +144,13 @@ class UsuarioController extends Controller
      * Store a newly created resource in storage.
      */
     public function crearUsuario(){
-        return view('admin.crear-usuario');
+        $usuario = new Usuario();
+        return view('admin.crear-usuario',compact('usuario'));
     }
 
     public function store(Request $request)
     {
-        // No
+        // Aca iria lo de create y en create lo de crearUsuario
     }
 
     /**
@@ -166,11 +168,11 @@ class UsuarioController extends Controller
     {
         if ($user->hasRole('Administrador')){
             if($user->id != auth()->user()->id){
-                abort(403, 'USER DOES NOT HAVE THE RIGHT PERMISSIONS');
+                abort(403, 'Solo el administrador tiene permiso');
             }
         }
 
-        return view('users.edit', [
+        return view('admin.crear-usuario', [
             'user' => $usuario,
             'roles' => Role::pluck('name')->all(),
             'userRoles' => $usuario->roles->pluck('name')->all()
@@ -195,7 +197,8 @@ class UsuarioController extends Controller
         $usuario->syncRoles($request->roles);
 
         return redirect()->back()
-                ->withSuccess('User is updated successfully.');
+                ->withSuccess('Usuario actualizado
+                ');
     }
 
     /**
@@ -208,6 +211,6 @@ class UsuarioController extends Controller
         }
         $usuario->syncRoles([]);
         $usuario->activo = false;
-        return redirect()->route('usuario.index');
+        return redirect()->route('admin.usuario');
     }
 }

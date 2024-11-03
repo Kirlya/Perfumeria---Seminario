@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
+    public function __construct()
+     {
+        $this->middleware('auth');
+        $this->middleware('permission:ver-categorias',['only' => ['index'] ]);
+        $this->middleware('permission:crear-categoria', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-categoria', ['only' => ['edit','update']]);
+        $this->middleware('permission:deshabilitar-categoria', ['only' => ['destroy']]);
+     }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +29,8 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('admin.crear-categoria');
+        $categoria = new Categoria();
+        return view('admin.crear-categoria',compact('categoria'));
     }
 
     /**

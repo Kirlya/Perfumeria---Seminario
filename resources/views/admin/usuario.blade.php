@@ -5,7 +5,7 @@
         $usuarios = DB::table('usuarios')->get();
     @endphp
     <h2>Usuarios</h2>
-    <button class="btn btn-dark"><a href="{{route('crear-usuario')}}" style="text-decoration: none;color:white">Crear Usuario</a></button>
+    <button class="btn btn-dark"><a href="{{route('usuario.create')}}" style="text-decoration: none;color:white">Crear Usuario</a></button>
     <div id="tabla-admin">
         <table class="table">
             <thead>

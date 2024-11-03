@@ -16,9 +16,10 @@ class MarcaController extends Controller
      public function __construct()
      {
         $this->middleware('auth');
-        $this->middleware('permission:crear-marca', ['only' => ['index','create','store']]);
-        $this->middleware('permission:editar-marca', ['only' => ['index','edit','update']]);
-        $this->middleware('permission:deshabilitar-marca', ['only' => ['index','destroy']]);
+        $this->middleware('permission:ver-marcas',['only' => ['index'] ]);
+        $this->middleware('permission:crear-marca', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-marca', ['only' => ['edit','update']]);
+        $this->middleware('permission:deshabilitar-marca', ['only' => ['destroy']]);
      }
 
     public function index()
@@ -36,7 +37,8 @@ class MarcaController extends Controller
 
     public function create()
     {
-        return view('admin.crear-marca');
+        $marca = new Marca();
+        return view('admin.crear-marca',compact('marca'));
     }
 
     /**

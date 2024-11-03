@@ -15,14 +15,17 @@ class ProductoController extends Controller
 
      protected $redirectTo = '/';
 
+     
      public function __construct()
      {
         $this->middleware('auth');
-        $this->middleware('permission:ver-producto|crear-producto|editar-producto|deshabilitar-producto', ['only' => ['index','show']]);
-        $this->middleware('permission:crear-producto', ['only' => ['create','store','menu','menuProductos']]);
-        $this->middleware('permission:editar-producto', ['only' => ['edit','update','menu','menuProductos']]);
-        $this->middleware('permission:deshabilitar-producto', ['only' => ['destroy','menu','menuProductos']]);
-     }
+        $this->middleware('permission:ver-producto',['only' => ['index']]);
+        $this->middleware('permission:crear-producto|editar-producto|deshabilitar-producto', ['only' => ['menuProductos','menu']]);
+        $this->middleware('permission:crear-producto', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-producto', ['only' => ['edit','update']]);
+        $this->middleware('permission:deshabilitar-producto', ['only' => ['destroy']]);
+    
+     } 
 
 
     public function index()
@@ -33,15 +36,36 @@ class ProductoController extends Controller
         return view('productos.index',compact('products'));
     }
 
-    public function porCategoria($categoria){
+    public function porSub($subcategoria){
+
+    }
+    //$categoria es un string
+    public function porCategoria(Categoria $categoria){
         //A modificar falta agregar tabla subcategoria
         $productos = DB::table('productos')
-                    ->join('subcategorias','subcategorias.id','=','productos.subcategoria_id')
+                    ->join('sub_categorias','sub_categorias.id','=','productos.subcategoria_id')
                     ->join('categorias', function (JoinClause $join){
-                        $join->on('subcategorias.categoria_id','=','categorias.id')
+                        $join->on('sub_categorias.categoria_id','=','categorias.id')
                         ->where('categorias.id','=',$categoria->id);})
                         ->get();
-        return view('categoria.lista_productos_categoria',compact('categoria'));
+        return view('productos.categoria',compact('categoria'));
+    }
+
+    /*
+    public function porSubCategoria(string $cat,string $subcat){
+        $subcategoria = DB::table('sub_categorias')->where('sub_categorias.id','=',$id)->get();
+        $productos = DB::table('productos')->join('sub_categorias','sub_categorias.id','=','productos.subcategoria_id')->where('sub_categorias.id','=','productos.subcategoria_id')->where('sub_categorias.categoria_id','=',$subcategoria->categoria_id)->get();
+        $categoria = DB::table('categorias')->where('categorias.id','=',$subcategoria->categoria_id)->value('nombre')->limit(1);
+        
+        return view('productos.subcategoria',compact('subcategoria','categoria','productos'));
+       // return view('productos.subcategoria',compact('categoria','productos','subcategoria'));
+    }
+    */
+
+    public function porSubCategoria(string $cat,string $sub){
+        $categoria = DB::table('categorias')->where('categorias.nombre','like',$cat)->value('id');
+        $subcategoria = DB::table('sub_categorias')->where('sub_categorias.categoria_id','=',$categoria)->where('sub_categorias.nombre','like',$sub)->value('id');
+        return view('productos.subcategoria',compact('categoria','subcategoria'));
     }
 
     public function menu(){
@@ -61,7 +85,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('admin.crear-producto');
+        $producto = new Producto();
+        return view('admin.crear-producto',compact('producto'));
     }
 
     /**
@@ -112,8 +137,9 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
+        
         //Consultar a futuro porsi esta bien el direccionamiento
-        return view('producto.show',compact('producto'));
+        return view('productos.show',compact('producto'));
     }
 
     /**
@@ -121,9 +147,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        $categorias = Categoria::get();
-
-        return view('product.edit',compact('producto','categorias'));
+        return view('admin.crear-producto',compact('producto'));
     }
 
     /**
@@ -137,18 +161,17 @@ class ProductoController extends Controller
         $producto->cantidad = $request->get('cantidad');
         $producto->marca_id = $request->get('marca_id');
         $producto->categoria_id = $request->get('categoria_id');
-        if($request->hasFile('imagen')){
-            $path = 'public/img';
-            $image = $request->file('imagen');
-            $image_name = $image->getClientOriginalName();
-            $img_url = $request->file('imagen')->store($path,$image_name);
-            $producto->imagen = $img_url;
-            //$producto->imagen = asset(str_replace('public','img',$img_url));
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'public/img/';
+            $name = time() . '-' . $file->getClientOriginalName();
+            $upload = $request->file('imagen')->move($destinationPath,$name);
+            $producto->imagen = $destinationPath . $name;
         }else{
-            $producto->imagen = '';
+            $producto->imagen = 'No se encontro';
         }
         $producto->update();
-        return redirect()->route('producto.index')->with('alert','Producto "'.$producto->nombre.'"actualizado');
+        return redirect()->route('admin.producto')->with('alert','Producto "'.$producto->nombre.'"actualizado');
     }
 
     /**

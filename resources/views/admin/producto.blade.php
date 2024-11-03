@@ -5,7 +5,7 @@
         $productos = DB::table('productos')->get();
     @endphp
     <h2>Productos</h2>
-    <button class="btn btn-dark"><a href="{{route('crear-producto')}}" style="text-decoration: none;color:white">Crear Producto</a></button>
+    <button class="btn btn-dark"><a href="{{route('producto.create')}}" style="text-decoration: none;color:white">Crear Producto</a></button>
     <div id="tabla-admin">
         <table class="table">
             <thead>
