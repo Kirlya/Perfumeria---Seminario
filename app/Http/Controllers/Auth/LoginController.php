@@ -63,7 +63,7 @@ class LoginController extends Controller
 
         if(Hash::check($request->get('password'), $usuario->contraseña)){
             if($usuario->activo){
-                $user = Usuario::find($usuario->id);
+                $user = Usuario::find($usuario->email);
                 //Aqui falla Argument #1 ($user) must be of type Illuminate\Contracts\Auth\Authenticatable,
                 Auth::login($user);
                 $request->session()->regenerate();

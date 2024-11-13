@@ -12,6 +12,11 @@ class Categoria extends Model
     protected $table = 'Categorias';
 
     protected $fillable = [
-        'nombre'
+        'nombre','activo'
     ];
+
+    protected $hidden = [
+        'activo'
+    ];
+
 }

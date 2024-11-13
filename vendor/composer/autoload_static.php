@@ -61,6 +61,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'T' => 
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
+            'Thiagoprz\\CompositeKey\\' => 23,
             'Tests\\' => 6,
             'Termwind\\' => 9,
         ),
@@ -221,6 +222,10 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
+        ),
+        'Thiagoprz\\CompositeKey\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/thiagoprz/eloquent-composite-key/src',
         ),
         'Tests\\' => 
         array (
@@ -622,13 +627,18 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'App\\Http\\Controllers\\FavoritoController' => __DIR__ . '/../..' . '/app/Http/Controllers/FavoritoController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MarcaController' => __DIR__ . '/../..' . '/app/Http/Controllers/MarcaController.php',
+        'App\\Http\\Controllers\\MercadoPagoController' => __DIR__ . '/../..' . '/app/Http/Controllers/MercadoPagoController.php',
         'App\\Http\\Controllers\\ProductoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductoController.php',
         'App\\Http\\Controllers\\ProductosCarritoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductosCarritoController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\SubCategoriaController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubCategoriaController.php',
         'App\\Http\\Controllers\\UsuarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuarioController.php',
+        'App\\Http\\Controllers\\VerProductosController' => __DIR__ . '/../..' . '/app/Http/Controllers/VerProductosController.php',
         'App\\Http\\Requests\\StoreRoleRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreRoleRequest.php',
         'App\\Http\\Requests\\UpdateRoleRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateRoleRequest.php',
+        'App\\Livewire\\AdminSubCategoria' => __DIR__ . '/../..' . '/app/Livewire/AdminSubCategoria.php',
+        'App\\Livewire\\Busqueda' => __DIR__ . '/../..' . '/app/Livewire/Busqueda.php',
+        'App\\Livewire\\SubCategoriaFiltro' => __DIR__ . '/../..' . '/app/Livewire/SubCategoriaFiltro.php',
         'App\\Mail\\SendMail' => __DIR__ . '/../..' . '/app/Mail/SendMail.php',
         'App\\Models\\Categoria' => __DIR__ . '/../..' . '/app/Models/Categoria.php',
         'App\\Models\\Direccion' => __DIR__ . '/../..' . '/app/Models/Direccion.php',
@@ -7458,6 +7468,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'TheSeer\\Tokenizer\\TokenCollectionException' => __DIR__ . '/..' . '/theseer/tokenizer/src/TokenCollectionException.php',
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
+        'Thiagoprz\\CompositeKey\\HasCompositeKey' => __DIR__ . '/..' . '/thiagoprz/eloquent-composite-key/src/HasCompositeKey.php',
         'TijsVerkoyen\\CssToInlineStyles\\CssToInlineStyles' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/CssToInlineStyles.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Processor.php',

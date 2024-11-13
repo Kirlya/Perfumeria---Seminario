@@ -16,6 +16,21 @@
     
         <form action="{{$marca->id? route('marca.update') : route('marca.store')}}" method="POST">
         @csrf
+
+        <div class="row mb-3">
+            <label for="nombre" class="col-md-4 col-form-label text-md-end">Codigo:</label>
+
+            <div class="col-md-6">
+                <input id="codigo" type="text" class="form-control @error('codigo') is-invalid @enderror" name="codigo" value="{{ old('codigo', optional($marca)->codigo ) }}" required autocomplete="nombre" autofocus>
+
+                @error('codigo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>Codigo invalido</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
         <div class="row mb-3">
             <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
 

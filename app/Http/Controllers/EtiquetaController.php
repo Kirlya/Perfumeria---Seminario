@@ -41,6 +41,7 @@ class EtiquetaController extends Controller
     {
         $etiqueta = new Etiqueta();
         $etiqueta->nombre = $request->get('nombre');
+        $etiqueta->activo = 1;
         $etiqueta->save();
 
         return redirect()->route('admin-etiquetas');

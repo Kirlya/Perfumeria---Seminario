@@ -28,6 +28,7 @@ class UsuarioSeeder extends Seeder
             Usuario::create($usuario)->assignRole('Administrador');*/
 
             $superAdmin = Usuario::create([
+                'dni' => 39391912,
                 'nombre' => 'Super',
                 'apellido' => 'Admin',
                 'telefono' => '1' ,
@@ -39,6 +40,7 @@ class UsuarioSeeder extends Seeder
             $superAdmin->assignRole('Administrador');
 
             $operador = Usuario::create([
+                'dni' => 00000002,
                 'nombre' => 'Sr',
                 'apellido' => 'Operario',
                 'telefono' => '3871230142',
@@ -51,6 +53,7 @@ class UsuarioSeeder extends Seeder
 
 
             $usuario = Usuario::create([
+                'dni' => 00000001,
                 'nombre' => 'Mr',
                 'apellido' => 'Usuario',
                 'telefono' => '3871234567',

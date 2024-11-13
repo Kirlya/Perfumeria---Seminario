@@ -9,17 +9,17 @@
     <script src="https://kit.fontawesome.com/0763a21c1e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css">
     <title>Perfumeria</title>
+    @livewireStyles
 </head>
 <body>
 @php
   use Illuminate\Support\Facades\DB;
-  use App\Models\SubCategoria;
-  $categorias = DB::table('categorias')->get();  
+  $categorias = DB::table('categorias')->where('activo','=','1')->get();  
 @endphp
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Perfumeria</a>
+          <a class="navbar-brand" href="{{route('home')}}">Perfumeria</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -32,7 +32,7 @@
                   {{ $categoria->nombre }}
                 </a>
                 @php
-                  $subcategorias = DB::table('sub_categorias')->where('categoria_id','=',$categoria->id)->get();
+                  $subcategorias = DB::table('sub_categorias')->where('categoria_id','=',$categoria->id)->where('activo','=',1)->get();
                 @endphp
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                   @foreach ($subcategorias as $subcategoria)
@@ -44,17 +44,19 @@
             </ul>
 
             @can('editar-producto')
-                <button class="btn btn-dark"><a href="{{ route('menu-admin') }}" target="" class="text-decoration:none">Administrar</a> </button>  
+                <a href="{{ route('menu-admin') }}" target="" class="btn btn-dark" style="text-decoration:none; color:white;">Administrar</a> 
             @endcan
             @if (auth()->user())
-                <button><a class="btn btn-dark" href="{{route('logout')}}" style="text-decoration:none">Logout</a></button>
+                <a class="btn btn-dark" href="{{route('logout')}}" style="text-decoration:none">Logout</a>
             @endif
           
-
+            <!--
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-dark" type="submit"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i></button>
-            </form>
+            </form> -->
+            <livewire:busqueda />
+
             <a class="icons" href="{{ route('login') }}">
                 <i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i>
             </a> 
@@ -69,8 +71,9 @@
       </nav>
         @yield('content')
         
-    <footer>
-
-    </footer>
+      <footer class="fixed-bottom" style="background-color:black; text-align:center;">
+          <p style="color:white">Derechos Reservados 2024</p>
+      </footer>
+    @livewireScripts
 </body>
 </html>

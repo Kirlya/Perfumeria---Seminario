@@ -11860,7 +11860,7 @@ nav {
 }
 
 .violeta{
-  background-color: rgb(132.6, 63.8, 244.6);
+  background-color: rgb(132.6, 63.8, 244.6) !important;
 }
 
 .icons{
@@ -11872,7 +11872,7 @@ nav {
 }
 
 body{
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .form-container{
@@ -11883,5 +11883,33 @@ body{
   width: 40%;
 }
 
+#producto-foto{
+  width: 40%;
+  height: auto;
+}
+
+#box-foto{
+  width: auto;
+  display: inline;
+  height: 100%;
+}
+
+#desc-producto{
+  margin: 3%;
+  padding: 2%;
+  display:flex;
+  flex-direction: column;
+}
+
+.perf-btn{
+  align-self: center;
+  width: 16em;
+}
+
+.container-prod{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+}
 
 /*# sourceMappingURL=index.css.map */

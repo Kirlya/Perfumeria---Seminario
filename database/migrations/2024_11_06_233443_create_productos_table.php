@@ -12,19 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id();
+            $table->decimal('codigo',8,0);
             $table->string('nombre');
             $table->string('descripcion')->nullable();
             $table->decimal('precio',10,2);
             $table->decimal('cantidad',5,0);
             $table->string('imagen');
             $table->boolean('activo');
-            $table->unsignedBigInteger('marca_id');
+            $table->string('cod_marca',3);
             $table->unsignedBigInteger('subcategoria_id');
+            $table->unsignedBigInteger('categoria_id');
             $table->timestamps();
 
-            $table->foreign('marca_id')->references('id')->on('marcas');
-            $table->foreign('subcategoria_id')->references('id')->on('sub_categorias');
+
+            $table->primary('codigo');
+            $table->foreign('cod_marca')->references('codigo')->on('marcas');
+            $table->foreign(['subcategoria_id','categoria_id'])->references(['id','categoria_id'])->on('sub_categorias');
         });
     }
 

@@ -88,27 +88,15 @@
                 },
                 body: JSON.stringify(formData)
             })
-            .then(response => {
-                if (!response.ok) {
-                    console.log(response);
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(preference => {
-                if (preference.error) {
-                    throw new Error(preference.error);
-                }
-                mp.checkout({
-                    preference: {
-                        id: preference.id // Asegúrate de que esta línea sea correcta
-                    },
-                    autoOpen: true
-                });
-                console.log('Respuesta de la preferencia:', preference);
-            })
-            .catch(error => console.error('Error al crear la preferencia:', error));
-     },
+            .then((response) => {
+                      // recibir el resultado del pago
+                      //console.log(response);
+                    })
+                    .catch((error) => {
+                      // tratar respuesta de error al intentar crear el pago
+                      console.error(error);
+                    })
+                },
      onError: (error) => {
        // callback llamado para todos los casos de error de Brick
        console.error(error);

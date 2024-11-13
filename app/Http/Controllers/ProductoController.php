@@ -73,7 +73,7 @@ class ProductoController extends Controller
     }
 
 
-    //preguntar 
+    //nope ya esta implementado livewire 
     public function search($nombre){
         $producto = DB::table('productos')->where('productos.nombre','like','%'.$nombre.'%')->get();
         //queda en proceso
@@ -95,20 +95,32 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $producto = new Producto();
+        $sub = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('subcategoria'))->value('id');
+        $cat = DB::table('sub_categorias')->where('sub_categorias.id','=',$sub)->value('categoria_id');
+        $producto->subcategoria_id = $sub;
+        $producto->categoria_id = $cat;
+        $count = DB::table('productos')->where('productos.codigo','>=',$cat * 1000000 + $sub * 10000)->where('productos.codigo','<=',$cat * 1000000 + $sub * 10000 + 9999)->latest()->value('codigo');
+
+        //$count = DB::table('productos')->where('productos.categoria_id','=',$cat)->where('productos.subcategoria_id','=',$sub)->count();
+        if($count){
+            $producto->codigo = $count+1;
+        }
+        else{
+            $producto->codigo = $cat * 1000000 + $sub * 10000;
+        }    
         $producto->nombre = $request->get('nombre');
         $producto->descripcion = $request->get('descripcion');
         $producto->precio = $request->get('precio');
         $producto->cantidad = $request->get('cantidad');
         
 
-        $marca = DB::table('marcas')->where('marcas.nombre','=',$request->get('marca'))->value('id');
+        $marca = DB::table('marcas')->where('marcas.nombre','=',$request->get('marca'))->value('codigo');
 
         $producto->activo = 1;
 
-        $producto->marca_id = $marca;
+        $producto->cod_marca = $marca;
 
-        $sub = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('subcategoria'))->value('id');
-        $producto->subcategoria_id = $sub;
+        
         /*
         if($request->get('imagen')){
             $path = 'public/img/';
@@ -117,19 +129,27 @@ class ProductoController extends Controller
         }else{
             $producto->imagen = 'No se encontro';
         }*/
-
+        /*
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $destinationPath = 'public/img/';
-            $name = time() . '-' . $file->getClientOriginalName();
+            $name = $file->getClientOriginalName();
             $upload = $request->file('imagen')->move($destinationPath,$name);
             $producto->imagen = $destinationPath . $name;
         }else{
             $producto->imagen = 'No se encontro';
+        }*/
+
+        if($request->get('imagen')){
+            $name = 'public/img/' . $request->get('imagen');
+            $producto->imagen = $name;
         }
 
         $producto->save();
         return redirect()->route('admin-productos');
+
+
+        
     }
 
     /**
@@ -155,16 +175,23 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
+        $sub = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('subcategoria'))->value('id');
+        $cat = DB::table('sub_categorias')->where('sub_categorias.id','=',$sub)->value('categoria_id');
+        $producto->subcategoria_id = $sub;
+        $producto->categoria_id = $cat;
+        //$count = DB::table('productos')->where('productos.categoria_id','=',$cat)->where('productos.subcategoria_id','=',$sub)->count();
+        //mala idea modificar el codigo puede causar problemas
+        //$producto->codigo = $cat * 1000000 + $sub * 10000 + $count;
         $producto->nombre = $request->get('nombre');
         $producto->descripcion = $request->get('descripcion');
         $producto->precio = $request->get('precio');
         $producto->cantidad = $request->get('cantidad');
-        $producto->marca_id = $request->get('marca_id');
-        $producto->categoria_id = $request->get('categoria_id');
+        $producto->marca_id = $request->get('cod_marca');
+
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $destinationPath = 'public/img/';
-            $name = time() . '-' . $file->getClientOriginalName();
+            $name = $file->getClientOriginalName();
             $upload = $request->file('imagen')->move($destinationPath,$name);
             $producto->imagen = $destinationPath . $name;
         }else{

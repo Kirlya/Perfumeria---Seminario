@@ -69,6 +69,36 @@ class MercadoPagoController extends Controller
 
     public function comprar(Request $request){
         $unique = Str::random(40);
+        $client = new PaymentClient();
+        $request_options = new RequestOptions();
+        $request_options->setCustomHeaders(["X-Idempotency-Key:".$unique]);
+        
+
+          try{
+            $payment = $client->create([
+                "transaction_amount" => $request->get('transaction_amount'),
+                "token" => $request->get('token'),
+                "installments" => $request->get('installments'),
+                "payment_method_id" => $request->get('payment_method_id'),
+                "issuer_id" => $request->get('issuer_id'),
+                "payer" => $request->get('payer')
+              ], $request_options);
+            return response()->json([$payment]);
+         } catch (MPApiException $error) {
+            return response()->json([
+                'error' => $error->getApiResponse()->getContent(),
+            ], 500);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    /*
+    public function comprar(Request $request){
+        $unique = Str::random(40);
         $client = new PreferenceClient();
         $request_options = new RequestOptions();
         $request_options->setCustomHeaders(["X-Idempotency-Key:".$unique]);
@@ -100,5 +130,5 @@ class MercadoPagoController extends Controller
           
 
           
-    }    
+    }   */ 
 }

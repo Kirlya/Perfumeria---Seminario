@@ -11,8 +11,10 @@ class Producto extends Model
 
     protected $table = 'Productos';
 
+    protected $primaryKey = 'codigo';
+
     protected $fillable = [
-        'nombre','descripcion','precio','imagen','cantidad','marca_id','subcategoria_id'
+        'codigo','nombre','descripcion','precio','imagen','cantidad','cod_marca','subcategoria_id','categoria_id'
     ];
 
     protected $hidden = [

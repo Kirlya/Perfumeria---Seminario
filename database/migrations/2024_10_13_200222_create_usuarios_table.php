@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id();
+            $table->decimal('dni',8,0)->unique();
             $table->string('nombre',30);
             $table->string('apellido',30);
             $table->string('telefono',20);
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('roles_id');
             $table->timestamps();
 
+            $table->primary('email');
             $table->foreign('roles_id')->references('id')->on('roles');
         });
     }

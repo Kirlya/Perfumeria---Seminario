@@ -46,7 +46,10 @@ class SubCategoriaController extends Controller
     public function store(Request $request)
     {
         $subcategoria = new SubCategoria();
+        $cat = DB::table('categorias')->where('categorias.nombre','=',$request->get('categoria'))->value('id');
         $subcategoria->nombre = $request->get('nombre');
+        $subcategoria->categoria_id = $cat;
+        $subcategoria->activo = 1;
         $subcategoria->save();
 
         return redirect()->route('admin-subcategorias');
@@ -65,15 +68,20 @@ class SubCategoriaController extends Controller
      */
     public function edit(SubCategoria $subCategoria)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubCategoria $subCategoria)
+    public function update(Request $request)
     {
-        //
+        dd($request);
+        $subcategoria = SubCategoria::where('id','=',$request->get('ids'))->firstOrFail();
+        $subcategoria->nombre = $request->get('nombre');
+        $categoria = DB::table('categorias')->where('categorias.id','=',$request->get('categoria'))->value('id');
+        $subcategoria->categoria_id = $categoria;
+        $subcategoria->update();
     }
 
     /**

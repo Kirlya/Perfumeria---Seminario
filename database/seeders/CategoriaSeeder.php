@@ -14,11 +14,11 @@ class CategoriaSeeder extends Seeder
     public function run(): void
     {
         $categorias = [
-            ['nombre' => 'Perfumes'],
-            ['nombre' => 'Maquillaje'],
-            ['nombre' => 'Cuidado Capilar'],
-            ['nombre' => 'Cuidado Piel'],
-            ['nombre' => 'Accesorios']
+            ['nombre' => 'Perfumes', 'activo' => 1],
+            ['nombre' => 'Maquillaje', 'activo' => 1],
+            ['nombre' => 'Cuidado Capilar', 'activo' => 1],
+            ['nombre' => 'Cuidado Piel', 'activo' => 1],
+            ['nombre' => 'Accesorios', 'activo' => 1]
         ];
 
         foreach($categorias as $categoria){

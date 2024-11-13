@@ -9,7 +9,11 @@ class ProductosCarrito extends Model
 {
     use HasFactory;
 
-    protected $table = 'productos_carritos';
+    protected $table = 'productos_carritos'; 
+
+    protected $primaryKey = null;
+    public $incrementing = false;
+    protected $keyType = 'array';
 
     protected $fillable = [
         'usuario_id','producto_id','cantidad','precio'

@@ -53,6 +53,21 @@
         </div>
 
         <div class="row mb-3">
+            <label for="dni" class="col-md-4 col-form-label text-md-end">Dni:</label>
+
+            <div class="col-md-6">
+                <input id="dni" type="number" class="form-control @error('dni') is-invalid @enderror" name="dni" value="{{ old('dni', optional($usuario)->dni) }}" required autocomplete="dni" autofocus>
+
+                @error('dni')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>DNI invalido</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+
+        <div class="row mb-3">
             <label for="telefono" class="col-md-4 col-form-label text-md-end">Telefono:</label>
 
             <div class="col-md-6">

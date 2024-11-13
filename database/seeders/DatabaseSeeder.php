@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             UsuarioSeeder::class,
             CategoriaSeeder::class,
             SubCategoriaSeeder::class,
+            MarcaSeeder::class,
             ]
         );
     }

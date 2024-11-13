@@ -40,6 +40,7 @@ class CategoriaController extends Controller
     {
         $categoria = new Categoria();
         $categoria->nombre = $request->get('nombre');
+        $categoria->activo = 1;
         $categoria->save();
 
         return redirect()->route('admin-categorias');
@@ -66,6 +67,7 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
+        
         $categoria->nombre = $request->get('nombre');
         $categoria->update();
         return redirect()->route('categoria.index');

@@ -12,6 +12,10 @@ class Etiqueta extends Model
     protected $table = 'Etiquetas';
 
     protected $fillable = [
-        'nombre'
+        'nombre', 'activo'
+    ];
+
+    protected $hidden = [
+        'activo'
     ];
 }

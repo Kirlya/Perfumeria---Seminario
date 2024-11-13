@@ -47,8 +47,9 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         $marca = new Marca();
+        $marca->codigo = $request->get('codigo');
         $marca->nombre = $request->get('nombre');
-        
+        $marca->activo = 1;
         //Evitar Duplicado
         
         $marca->save();

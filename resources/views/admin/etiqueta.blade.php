@@ -1,27 +1,45 @@
 @extends('layouts.adminlayout')
 
 @section('content')
-    @php
-        $etiquetas = DB::table('etiquetas')->get();
-    @endphp
+    
     <h2>Etiquetas</h2>
-    <button class="btn btn-dark"><a href="{{route('etiqueta.create')}}" style="text-decoration: none;color:white">Crear Etiqueta</a></button>
-    <div id="tabla-admin">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($etiquetas as $etiqueta)
-                    <tr>
-                        <th scope="row">{{$etiqueta->id}}</th>
-                        <td>{{ $etiqueta->nombre }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-crearet">Crear Etiqueta</button>
+    
+    
+    <div class="modal fade" id="modal-crearet" tab-index="-1" aria-labelledby="modal-title-et" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title-et">Etiqueta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('etiqueta.store')}}" method="POST">
+                        @csrf
+                        <div class="row mb-3">
+                            <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
+                
+                            <div class="col-md-6">
+                                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
+                
+                                @error('nombre')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Nombre invalido</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        
+                        </form>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <livewire:adminetiqueta />
+    
 @endsection

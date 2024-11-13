@@ -26,14 +26,14 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'verificarlogin'])->name('verlogin');
 
-Route::get('/productos/categoria/{ categoria }', [App\Http\Controllers\ProductoController::class,'porCategoria'])->name('categoria');
+Route::get('/productos/categoria/{ categoria }', [App\Http\Controllers\VerProductosController::class,'porCategoria'])->name('categoria');
 
-Route::get('/productos/{producto}', [App\Http\Controllers\ProductoController::class,'show'])->name('producto');
+Route::get('/productos/{producto}', [App\Http\Controllers\VerProductosController::class,'show'])->name('producto');
 
 
 Route::get('/usuario',[App\Http\Controllers\UsuarioController::class,'index'])->name('usuario');
 
-Route::get('/productos/categoria/{categoria_nombre}/subcategoria/{subcategoria_nombre}',[App\Http\Controllers\ProductoController::class,'porSubCategoria'])->name('porsubcategoria');
+Route::get('/productos/categoria/{categoria_nombre}/subcategoria/{subcategoria_nombre}',[App\Http\Controllers\VerProductosController::class,'porSubCategoria'])->name('porsubcategoria');
 //Route::post('/productos/categoria/{categoria_nombre}/subcategoria/{subcategoria_nombre}',[App\Http\Controllers\ProductosCarritoController::class,'agregarProducto'])->name('porsubcategoria');
 
 Route::get('/contacto',[App\Http\Controllers\HomeController::class,'contacto'])->name('contacto');

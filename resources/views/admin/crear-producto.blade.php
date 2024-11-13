@@ -89,7 +89,7 @@
             <div class="col-md-6">
                 <select name="marca" id="marca" value="{{old('marca')}}" required>
                     @foreach ($marcas as $marca)
-                        <option {{ $producto->marca_id && $producto->marca_id == $marca->id ? 'selected': ''}} value="{{ $marca->nombre }}">{{ $marca->nombre }}</option>
+                        <option {{ $producto->cod_marca && $producto->cod_marca == $marca->codigo ? 'selected': ''}} value="{{ $marca->nombre }}">{{ $marca->nombre }}</option>
                     @endforeach
                 </select>
                 @error('marca')
