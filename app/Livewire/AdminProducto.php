@@ -13,7 +13,8 @@ class AdminProducto extends Component
 
     public $productos;
     public $orden;
-
+    public $columna;
+    public $index;
 
     public $codigo;
     public $nombre;
@@ -23,10 +24,9 @@ class AdminProducto extends Component
     public $activo;
     public $cantidad;
     public $marcap;
+    public $marca_id;
     public $subcategory;
     public $subcategoria_id;
-    public $categoria_id;
-    public $category;
 
     public function mount(){
         $this->orden_nombre = 0;
@@ -110,43 +110,57 @@ class AdminProducto extends Component
         return view('livewire.admin-producto');
     }
 
-    public function editsubc($codigo){
+    public function edit($codigo){
         $this->codigo = $codigo;
-        $producto = DB::table('productos')->where('productos.codigo','=',$this->codigo)->get();
-        
-        $this->nombre = $producto[0]->nombre;
-        $this->descripcion = $producto[0]->descripcion;
-        $this->precio = $producto[0]->precio;
-        $this->cantidad = $producto[0]->cantidad;
+        $this->columna = array_column($this->productos->toArray(),'codigo');
+        $this->index = array_search($codigo,$this->columna);
+        $this->nombre = $this->productos[$this->index]->nombre;
+        $this->descripcion = $this->productos[$this->index]->descripcion;
+        $this->precio = $this->productos[$this->index]->precio;
+        $this->cantidad = $this->productos[$this->index]->cantidad;
         $this->marcap = DB::table('productos')->join('marcas','productos.cod_marca','=','marcas.codigo')->where('productos.codigo','=',$this->codigo)->value('marcas.nombre');
         $this->subcategory = DB::table('productos')->join('sub_categorias','productos.subcategoria_id','=','sub_categorias.id')->where('productos.codigo','=',$this->codigo)->value('sub_categorias.nombre');
     }
 
     public function update()
     {
+        $this->subcategoria_id = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$this->subcategory)->value('id');
+        $this->marca_id = DB::table('marcas')->where('marcas.nombre','=',$this->marcap)->value('codigo');
         //dd($this->imagen->getClientOriginalName());
         if($this->imagen){
             //problema con store
-            $this->imagen->store('public/img');
+            DB::transaction(function () {
+                DB::update('update productos set nombre = "'.$this->nombre.'", descripcion = "'.$this->descripcion.'", precio = '.$this->precio.', cod_marca = "'.$this->marca_id.'", imagen = "public/img/'.$this->imagen->getClientOriginalName().'", subcategoria_id = '. $this->subcategoria_id .' where codigo = '.$this->codigo);
+            }); 
+            $this->productos[$this->index]->imagen = "public/img/".$this->imagen->getClientOriginalName();
         }
             
+        $this->productos[$this->index]->nombre = $this->nombre;
+        $this->productos[$this->index]->descripcion = $this->descripcion;
+        $this->productos[$this->index]->cantidad = $this->cantidad;
+        $this->productos[$this->index]->precio = $this->precio;
         
-        $this->subcategoria_id = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$this->subcategory)->value('id');
-        $this->categoria_id = DB::table('sub_categorias')->where('sub_categorias.id','=',$this->subcategoria_id)->value('categoria_id');
         DB::transaction(function () {
-            DB::update('update productos set nombre = "'.$this->nombre.'", descripcion = "'.$this->descripcion.'", precio = '.$this->precio.', imagen = "public/img/'.$this->imagen->getClientOriginalName().'", subcategoria_id = '. $this->subcategoria_id .', categoria_id = '.$this->categoria_id.' where codigo = '.$this->codigo);
+            DB::update('update productos set nombre = "'.$this->nombre.'", descripcion = "'.$this->descripcion.'", precio = '.$this->precio.', cod_marca = "'.$this->marca_id.'", subcategoria_id = '. $this->subcategoria_id .' where codigo = '.$this->codigo);
         }); 
     }
 
     public function desHab($codigo){
         $this->codigo = $codigo;
-        $this->activo = DB::table('productos')->where('productos.codigo','=',$this->codigo)->value('activo');
+        $this->columna = array_column($this->productos->toArray(),'codigo');
+        $this->index = array_search($codigo,$this->columna);
+        $this->activo = DB::table('productos')->where('codigo','=',$this->codigo)->value('activo');
+        //dd($this->activo);
+        if($this->activo){
+            $this->activo = 0;
+        }else{
+            $this->activo = 1;
+        }
         DB::transaction(function (){
-            if($this->activo) {
-                DB::update('update productos set activo = '. 0 .' where codigo = '.$this->codigo);
-            }else{
-                DB::update('update productos set activo = '. 1 .' where codigo = '.$this->codigo);
-            }
+                DB::update('update productos set activo = '. $this->activo .' where codigo = '.$this->codigo);
         });
+
+        
+        $this->productos[$this->index]->activo = $this->activo;
     }
 }

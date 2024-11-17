@@ -47,10 +47,15 @@ class SubCategoriaController extends Controller
     {
         $subcategoria = new SubCategoria();
         $cat = DB::table('categorias')->where('categorias.nombre','=',$request->get('categoria'))->value('id');
-        $subcategoria->nombre = $request->get('nombre');
-        $subcategoria->categoria_id = $cat;
-        $subcategoria->activo = 1;
-        $subcategoria->save();
+        $existe = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('nombre'))->where('sub_categorias.categoria_id',$cat)->get();
+        //falta probar
+        if($existe == null){
+            $subcategoria->nombre = $request->get('nombre');
+            $subcategoria->categoria_id = $cat;
+            $subcategoria->activo = 1;
+            $subcategoria->save();
+        }
+        
 
         return redirect()->route('admin-subcategorias');
     }
@@ -76,7 +81,6 @@ class SubCategoriaController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
         $subcategoria = SubCategoria::where('id','=',$request->get('ids'))->firstOrFail();
         $subcategoria->nombre = $request->get('nombre');
         $categoria = DB::table('categorias')->where('categorias.id','=',$request->get('categoria'))->value('id');

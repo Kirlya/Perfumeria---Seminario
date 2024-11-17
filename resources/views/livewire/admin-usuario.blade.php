@@ -1,15 +1,15 @@
 <div id="tabla-admin">
     @php
-        $usuarios = DB::table('usuarios')->get();
+        //$usuarios = DB::table('usuarios')->get();
     @endphp
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Email</th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorEmail()">Email</a></th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Activo</th>
-                <th scope="col">Rol</th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorApellido()">Apellido</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorActivo()">Activo</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorRol()">Rol</a></th>
                 <th scope="col"></th>
             </tr>
         </thead>

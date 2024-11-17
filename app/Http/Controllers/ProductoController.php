@@ -96,9 +96,8 @@ class ProductoController extends Controller
     {
         $producto = new Producto();
         $sub = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('subcategoria'))->value('id');
-        $cat = DB::table('sub_categorias')->where('sub_categorias.id','=',$sub)->value('categoria_id');
         $producto->subcategoria_id = $sub;
-        $producto->categoria_id = $cat;
+        $cat = DB::table('sub_categorias')->where('sub_categorias.id','=',$sub)->value('categoria_id');
         $count = DB::table('productos')->where('productos.codigo','>=',$cat * 1000000 + $sub * 10000)->where('productos.codigo','<=',$cat * 1000000 + $sub * 10000 + 9999)->latest()->value('codigo');
 
         //$count = DB::table('productos')->where('productos.categoria_id','=',$cat)->where('productos.subcategoria_id','=',$sub)->count();
@@ -178,7 +177,6 @@ class ProductoController extends Controller
         $sub = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('subcategoria'))->value('id');
         $cat = DB::table('sub_categorias')->where('sub_categorias.id','=',$sub)->value('categoria_id');
         $producto->subcategoria_id = $sub;
-        $producto->categoria_id = $cat;
         //$count = DB::table('productos')->where('productos.categoria_id','=',$cat)->where('productos.subcategoria_id','=',$sub)->count();
         //mala idea modificar el codigo puede causar problemas
         //$producto->codigo = $cat * 1000000 + $sub * 10000 + $count;

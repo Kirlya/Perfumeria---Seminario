@@ -13,15 +13,67 @@ class AdminUsuario extends Component
     public $nombre;
     public $apellido;
 
+    public $usuarios;
+    public $columna;
+    public $index;
+    public $order;
+
+    public function mount(){
+        $this->order = 0;
+        $this->usuarios = DB::table('usuarios')->get();
+    }
+
     public function render()
     {
         return view('livewire.admin-usuario');
     }
 
+    public function ordenarPorEmail(){
+        if($this->order){
+            $this->order = 0;
+            $this->usuarios = DB::table('usuarios')->orderBy('email','desc')->get();
+        }else{
+            $this->order = 1;
+            $this->usuarios = DB::table('usuarios')->orderBy('email')->get();
+        }
+    }
+
+    public function ordenarPorApellido(){
+        if($this->order){
+            $this->order = 0;
+            $this->usuarios = DB::table('usuarios')->orderBy('apellido','desc')->get();
+        }else{
+            $this->order = 1;
+            $this->usuarios = DB::table('usuarios')->orderBy('apellido')->get();
+        }
+    }
+
+    public function ordenarPorActivo(){
+        if($this->order){
+            $this->order = 0;
+            $this->usuarios = DB::table('usuarios')->orderBy('activo','desc')->get();
+        }else{
+            $this->order = 1;
+            $this->usuarios = DB::table('usuarios')->orderBy('activo')->get();
+        }
+    }
+
+    public function ordenarPorRol(){
+        if($this->order){
+            $this->order = 0;
+            $this->usuarios = DB::table('usuarios')->join('roles','usuarios.roles_id','=','roles.id')->orderBy('roles.name','desc')->select('usuarios.*')->get();
+        }else{
+            $this->order = 1;
+            $this->usuarios = DB::table('usuarios')->join('roles','usuarios.roles_id','=','roles.id')->orderBy('roles.name')->select('usuarios.*')->get();
+        }
+    }
+
     public function editarusu($correo){
         $this->correo = $correo;
-        $this->nombre = DB::table('usuarios')->where('usuarios.email','=',$this->correo)->value('nombre');
-        $this->apellido = DB::table('usuarios')->where('usuarios.email','=',$this->correo)->value('apellido');
+        $this->columna = array_column($this->usuarios->toArray(),'email');
+        $this->index = array_search($correo,$this->columna);
+        $this->nombre = $this->usuarios[$this->index]->nombre;
+        $this->apellido = $this->usuarios[$this->index]->apellido;
         $this->role = DB::table('usuarios')->join('roles','usuarios.roles_id','=','roles.id')->where('usuarios.email','=',$this->correo)->value('roles.name');
     }
 
@@ -34,7 +86,9 @@ class AdminUsuario extends Component
 
     public function desHab($correo){
         $this->correo = $correo;
-        $this->activo = DB::table('usuarios')->where('usuarios.email','=',$this->correo)->value('activo');
+        $this->columna = array_column($this->usuarios->toArray(),'email');
+        $this->index = array_search($correo,$this->columna);
+        $this->activo = $this->usuarios[$this->index]->activo;
         DB::transaction(function (){
             if($this->activo) {
                 DB::update('update usuarios set activo = '. 0 .' where email = '.json_encode($this->correo));
@@ -42,5 +96,11 @@ class AdminUsuario extends Component
                 DB::update('update usuarios set activo = '. 1 .' where email = '.json_encode($this->correo));
             }
         });
+        if($this->activo){
+            $this->activo = 0;
+        }else{
+            $this->activo = 1;
+        }
+        $this->usuarios[$this->index]->activo = $this->activo;
     }
 }

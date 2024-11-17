@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->primary(['id','categoria_id']);
+            //$table->primary(['id','categoria_id']);
         });
     }
 

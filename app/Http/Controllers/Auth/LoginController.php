@@ -63,9 +63,13 @@ class LoginController extends Controller
 
         if(Hash::check($request->get('password'), $usuario->contraseña)){
             if($usuario->activo){
-                $user = Usuario::find($usuario->email);
+                $user = Usuario::find($usuario->id);
+                
                 //Aqui falla Argument #1 ($user) must be of type Illuminate\Contracts\Auth\Authenticatable,
+                Auth::logout();
                 Auth::login($user);
+                
+                //dd(Auth::user());
                 $request->session()->regenerate();
                 return redirect('/');
             }
@@ -103,8 +107,9 @@ class LoginController extends Controller
     protected function logout(Request $request)
     {
         $this->guard()->logout();
+        Auth::logout();
         $request->session()->flush();
         $request->session()->regenerate();
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 }

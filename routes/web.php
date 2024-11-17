@@ -11,6 +11,27 @@ Route::get('/', function () {
 
 //Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/favoritos',function(){
+        return view('pagina.favoritos');
+    })->name('favoritos');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/carrito',function(){
+        return view('pagina.carrito');
+    })->name('carrito');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/perfil',function(){
+        return view('pagina.contacto');
+    })->name('perfil');
+});
+
+
+
+
 //Route::get('/',[App\Http\Controllers\UsuarioController::class, 'index'])->name('home');
 Route::post('/comprar',[App\Http\Controllers\MercadoPagoController::class,'comprar'])->name('comprar.post');
 Route::get('/comprar',[App\Http\Controllers\ProductosCarritoController::class,'comprar'])->name('comprar');

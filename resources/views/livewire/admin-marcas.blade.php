@@ -1,15 +1,15 @@
 
     @php
-        $marcas = DB::table('marcas')->get();
+        //$marcas = DB::table('marcas')->get();
     @endphp
 
     <div id="tabla-admin">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Codigo</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Activo</th>
+                    <th scope="col" class="pointer"><a wire:click="ordenarPorCodigo()">Codigo</a></th>
+                    <th scope="col" class="pointer"><a wire:click="ordenarPorNombre()">Nombre</a></th>
+                    <th scope="col" class="pointer"><a wire:click="ordenarPorActivo()">Activo</a></th>
                     <th scope="col"></th>
                 </tr>
             </thead>

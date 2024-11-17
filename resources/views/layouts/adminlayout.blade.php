@@ -27,7 +27,7 @@
     <div id="menu">
         <!-- Menu opciones -->
         <div id="logo">
-            <span>Logo</span>
+            <a href={{route('home')}}>Logo</a>
         </div>
         <div class="col-md-9">
             <h1>Menu Administración</h1>

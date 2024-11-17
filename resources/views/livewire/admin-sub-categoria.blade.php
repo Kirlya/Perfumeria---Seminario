@@ -3,22 +3,22 @@
         use App\Models\Subcategoria;
         use App\Models\Categoria;
         //$subcategorias = SubCategoria::all();
-        $subcategorias = DB::table('sub_categorias')->get();
+     
     @endphp
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Activo</th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorId()">Id</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorNombre()">Nombre</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorCategoria()">Categoria</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorActivo()">Activo</a></th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($subcategorias as $subcategoria)
                 <tr>
-                    <th scope="row">{{$subcategoria->id}}</th>
+                    <th scope="row">{{ $subcategoria->id }}</th>
                     <td>{{ $subcategoria->nombre }}</td>
                     <td>{{ $subcategoria->categoria_id }}</td>
                     <td>{{ $subcategoria->activo }}</td>
@@ -77,7 +77,7 @@
                                 <label for="nombre" class="col-md-4 col-form-label text-md-end">Categoria:</label>
                     
                                 <div class="col-md-6">
-                                    <select name="categoria" id="categoria" value="{{old('categoria')}}" wire:model='category' required>
+                                    <select name="categoria" id="categoria" value="{{old('categoria')}}" wire:model='category' disabled required>
                                         @foreach ($categorias as $categoria)
                                             <option  @if($category == $categoria->nombre) selected @endif value="{{ $categoria->nombre }}">{{ $categoria->nombre }}</option>
                                         @endforeach

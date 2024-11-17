@@ -46,12 +46,15 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'codigo' => ['required','string','max:3','unique:marcas'],
+            'nombre' => ['required','string']
+        ]);
         $marca = new Marca();
-        $marca->codigo = $request->get('codigo');
-        $marca->nombre = $request->get('nombre');
+        $marca->codigo = $credentials->get('codigo');
+        $marca->nombre = $credentials->get('nombre');
         $marca->activo = 1;
         //Evitar Duplicado
-        
         $marca->save();
         return redirect()->route('admin-marcas');
     }

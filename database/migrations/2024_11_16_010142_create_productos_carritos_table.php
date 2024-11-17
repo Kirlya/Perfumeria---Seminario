@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('productos_carritos', function (Blueprint $table) {
             //usar codigo producto y correo
             $table->decimal('producto_id',8,0);
-            $table->string('usuario_id',40);
+            $table->unsignedBigInteger('usuario_id',40);
             $table->decimal('cantidad',5,0);
             $table->decimal('precio',10,2);
             $table->timestamps();
 
             $table->foreign('producto_id')->references('codigo')->on('productos');
-            $table->foreign('usuario_id')->references('email')->on('usuarios');
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->primary(['usuario_id','producto_id']);
         });
     }

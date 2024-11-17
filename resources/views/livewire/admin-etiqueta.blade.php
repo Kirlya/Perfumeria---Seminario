@@ -1,13 +1,13 @@
 <div id="tabla-admin">
     @php
-        $etiquetas = DB::table('etiquetas')->get();
+        //$etiquetas = DB::table('etiquetas')->get();
     @endphp
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Activo</th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorId()">Id</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorNombre()">Nombre</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorActivo()">Activo</a></th>
                 <th scope="col"></th>
             </tr>
         </thead>

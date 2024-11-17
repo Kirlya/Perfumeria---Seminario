@@ -63,6 +63,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Usuario::class),
+            //'model' => App\Models\Usuario::class,'username' => 'email',
         ],
 
         // 'users' => [

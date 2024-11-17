@@ -1,23 +1,17 @@
 <div id="tabla-admin">
-    @php
-        use App\Models\Subcategoria;
-        use App\Models\Categoria;
-        //$subcategorias = SubCategoria::all();
-        $categorias = DB::table('categorias')->get();
-    @endphp
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Activo</th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorId()">Id</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorNombre()">Nombre</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorActivo()">Activo</a></th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($categorias as $categoria)
                 <tr>
-                    <th scope="row">{{$categoria->id}}</th>
+                    <th scope="row">{{ $categoria->id }}</th>
                     <td>{{ $categoria->nombre }}</td>
                     <td>{{ $categoria->activo }}</td>
 

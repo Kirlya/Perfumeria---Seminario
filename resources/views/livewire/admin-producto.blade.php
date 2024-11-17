@@ -5,15 +5,15 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col"> <a wire:click="ordenarPorCodigo()">Codigo</a></th>
-                <th scope="col">Imagen</th>
-                <th scope="col"> <a wire:click="ordenarPorNombre()">Nombre</a> </th>
-                <th scope="col">Descripcion</th>
-                <th scope="col"> <a wire:click="ordenarPorPrecio()">Precio</a></th>
-                <th scope="col"> <a wire:click="ordenarPorCantidad()">Cantidad</a></th>
-                <th scope="col"><a wire:click="ordenarPorActivo()">Activo</a></th>
-                <th scope="col"><a wire:click="ordenarPorMarca()">Marca</a></th>
-                <th scope="col"><a wire:click="ordenarPorSubCategoria()">SubCategoria</a></th>
+                <th scope="col" class="pointer"> <a wire:click="ordenarPorCodigo()">Codigo</a></th>
+                <th scope="col" class="pointer">Imagen</th>
+                <th scope="col" class="pointer"> <a wire:click="ordenarPorNombre()">Nombre</a> </th>
+                <th scope="col" class="pointer">Descripcion</th>
+                <th scope="col" class="pointer"> <a wire:click="ordenarPorPrecio()">Precio</a></th>
+                <th scope="col" class="pointer"> <a wire:click="ordenarPorCantidad()">Cantidad</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorActivo()">Activo</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorMarca()">Marca</a></th>
+                <th scope="col" class="pointer"><a wire:click="ordenarPorSubCategoria()">SubCategoria</a></th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -39,7 +39,7 @@
                     <td>{{ $marca }}</td>
                     <td>{{ $subcategoria }}</td>
                     <td>
-                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-editarp" wire:click="editsubc({{$producto->codigo}})">Editar</button>
+                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-editarp" wire:click="edit({{$producto->codigo}})">Editar</button>
                         <button class="btn btn-dark" wire:click="desHab({{$producto->codigo}})">@if($producto->activo) Deshabilitar @else Habilitar @endif</button>
                     </td>
                 </tr>

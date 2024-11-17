@@ -38,8 +38,12 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = $request->validate([
+            'nombre' => ['string','max:30','unique:categorias']
+        ]);
+
         $categoria = new Categoria();
-        $categoria->nombre = $request->get('nombre');
+        $categoria->nombre = $credentials->get('nombre');
         $categoria->activo = 1;
         $categoria->save();
 

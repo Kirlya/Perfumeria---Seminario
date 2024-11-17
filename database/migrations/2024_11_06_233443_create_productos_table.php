@@ -21,13 +21,14 @@ return new class extends Migration
             $table->boolean('activo');
             $table->string('cod_marca',3);
             $table->unsignedBigInteger('subcategoria_id');
-            $table->unsignedBigInteger('categoria_id');
+            //$table->unsignedBigInteger('categoria_id');
             $table->timestamps();
 
 
             $table->primary('codigo');
             $table->foreign('cod_marca')->references('codigo')->on('marcas');
-            $table->foreign(['subcategoria_id','categoria_id'])->references(['id','categoria_id'])->on('sub_categorias');
+            $table->foreign('subcategoria_id')->references('id')->on('sub_categorias');
+            //$table->foreign(['subcategoria_id','categoria_id'])->references(['id','categoria_id'])->on('sub_categorias');
         });
     }
 

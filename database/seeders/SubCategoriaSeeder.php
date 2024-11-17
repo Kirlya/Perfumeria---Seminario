@@ -61,7 +61,7 @@ class SubCategoriaSeeder extends Seeder
             'activo' => 1],
             ['nombre' => 'Otros',
             'categoria_id' => '5',
-            'activo' => 1],
+            'activo' => 1]
             ];
 
             foreach($subcategorias as $subcategoria){

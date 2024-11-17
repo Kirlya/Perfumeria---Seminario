@@ -11896,7 +11896,7 @@ body{
 
 #desc-producto{
   margin: 3%;
-  padding: 2%;
+  padding: 3%;
   display:flex;
   flex-direction: column;
 }
@@ -11911,5 +11911,9 @@ body{
   flex-direction:row;
   justify-content: space-around;
 }
+
+.pointer {
+  cursor: pointer;
+ }
 
 /*# sourceMappingURL=index.css.map */

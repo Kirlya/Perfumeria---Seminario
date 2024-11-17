@@ -14,9 +14,9 @@ class SubCategoria extends Model
 
     protected $table = 'sub_categorias';
 
-    protected $primaryKey = ['id','categoria_id'];
+    //protected $primaryKey = ['id','categoria_id'];
 
-    protected $keyType = 'array';
+    //protected $keyType = 'array';
 
     protected $fillable = [
         'id',
