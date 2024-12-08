@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductosCarrito;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductosCarritoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public $token;
+    public $request;
+    
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('permission:realizar-compra',['only' => ['index','agregarProducto','recargar','comprar','tarjeta']]);
+    }
+
     public function index()
     {
         return view('carrito.index');
@@ -40,8 +46,22 @@ class ProductosCarritoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function comprar(){
-        return view('pagos.index');
+    public function recargar(){
+        if(empty($this->request)){
+            return redirect()->route('home');}
+        else{
+            return view('pagos.index',['token' => $this->token, 'request' => $this->request]);
+        }
+    }
+
+    public function comprar($token){
+        $this->token = $token;
+        return view('pagina.envio',['token' => $token]);
+    }
+
+    public function tarjeta(Request $request,$token){
+        $this->request = $request;
+        return view('pagos.index',['token' => $this->token, 'request' => $this->request ]);
     }
 
     public function store(Request $request)

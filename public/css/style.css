@@ -11917,3 +11917,48 @@ body{
  }
 
 /*# sourceMappingURL=index.css.map */
+@media only screen and (max-width:768px){
+  body{
+    overflow-x: hidden;
+  }
+
+  .desktop-img{
+    display: none;
+  }
+  .busqueda{
+    display:none;
+  }
+
+  #admin{
+    position:absolute;
+    top:4%;
+    right:4%;
+  }
+
+
+  .navbar{
+    position:relative !important;
+    overflow: visible;
+  }
+
+  .table{
+    overflow-x: scroll;
+    width: 100%;
+  }
+
+  #perfil{
+    float:right;
+  }
+
+  #div-filtro{
+    display:none;
+  }
+
+
+  #producto-subc{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10%;
+  }
+}

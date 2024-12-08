@@ -13,15 +13,19 @@ class SubCategoriaFiltro extends Component
     public $categoria;
     public $productos;
     public $marcas = [];
-    public $busqueda= '';
     public $favoritos = [];
     public $selected;
     public $pos;
-    public $minv;
-    public $maxv;
+    public $maxv = 1000;
+    public $maxa = 1000;
+    public $mina = 0;
+    public $orden_name ="";
+    public $orden_crit ="";
 
     public function mount($categoria,$subcategoria)
     {
+        $this->maxv = intval(DB::table('productos')->where('subcategoria_id',$subcategoria)->max('precio'));
+        $this->maxa = intval($this->maxv);
         $this->subcategoria = $subcategoria;
         $this->categoria = $categoria;
         $this->selected = 0;
@@ -35,8 +39,7 @@ class SubCategoriaFiltro extends Component
         }
         
         $this->productos = Producto::where('subcategoria_id',$subcategoria)->where('activo',1)->get();
-        $this->maxv = DB::table('productos')->where('subcategoria_id',$subcategoria)->max('precio');
-        $this->minv = "0";
+        
     }
 
     public function render()
@@ -79,8 +82,34 @@ class SubCategoriaFiltro extends Component
             $this->productos = Producto::where('subcategoria_id',$this->subcategoria)->get();
             if(!empty($this->marcas))
                 $this->productos = $this->productos->whereIn('cod_marca',$this->marcas);
+            $this->orden();
+            $this->productos = $this->productos->where('precio','>=',$this->mina);
+            $this->productos = $this->productos->where('precio','<=',$this->maxa);
             //$this->productos = $this->productos->where('precio','>=',$this->min)->where('precio','<=',$this->max);
         
+    }
+
+    public function actualizarPrecioMin(){
+        $this->mina = $this->mina;
+        $this->actualizarLista();
+    }
+
+    public function actualizarPrecioMax(){
+        $this->maxa = $this->maxa;
+        $this->actualizarLista();
+    }
+
+    public function orden(){
+        if($this->orden_name != ""){
+            if($this->orden_crit != ""){
+                if($this->orden_crit == 1){
+                    $this->productos = $this->productos->sortBy($this->orden_name);
+                }
+                else{
+                    $this->productos = $this->productos->sortByDesc($this->orden_name);
+                }
+            }
+        }
     }
 
 }

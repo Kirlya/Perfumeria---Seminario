@@ -19,6 +19,7 @@ class ProductoController extends Controller
      public function __construct()
      {
         $this->middleware('auth');
+        $this->middleware('permission:ver-ventas',['only' => ['ventas']]);
         $this->middleware('permission:ver-producto',['only' => ['index']]);
         $this->middleware('permission:crear-producto|editar-producto|deshabilitar-producto', ['only' => ['menuProductos','menu']]);
         $this->middleware('permission:crear-producto', ['only' => ['create','store']]);
@@ -34,6 +35,10 @@ class ProductoController extends Controller
         $products = DB::table('productos')->get();
 
         return view('productos.index',compact('products'));
+    }
+
+    public function ventas(){
+        return view('admin.venta');
     }
 
     public function porSub($subcategoria){

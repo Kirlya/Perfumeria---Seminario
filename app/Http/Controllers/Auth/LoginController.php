@@ -61,25 +61,35 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if(Hash::check($request->get('password'), $usuario->contraseña)){
+        if($request->get('password') != null && $usuario != null){
             if($usuario->activo){
-                $user = Usuario::find($usuario->id);
+                if(Hash::check($request->get('password'), $usuario->contraseña)){
+                    if($usuario->activo){
+                        $user = Usuario::find($usuario->id);
+                        
+                        //Aqui falla Argument #1 ($user) must be of type Illuminate\Contracts\Auth\Authenticatable,
+                        Auth::logout();
+                        Auth::login($user);
+                        
+                        //dd(Auth::user());
+                        $request->session()->regenerate();
+                        return redirect('/');
+                    }
+            
+                }
                 
-                //Aqui falla Argument #1 ($user) must be of type Illuminate\Contracts\Auth\Authenticatable,
-                Auth::logout();
-                Auth::login($user);
+            }else{
                 
-                //dd(Auth::user());
-                $request->session()->regenerate();
-                return redirect('/');
+                return back()->withErrors([
+                    'email' => 'Error en login',
+                ])->onlyInput('email');
             }
-            
         }else{
-            
             return back()->withErrors([
-                'email' => 'Error en login',
+                'email' => 'Usuario Deshabilitado'
             ])->onlyInput('email');
         }
+            
     }
     /*
 

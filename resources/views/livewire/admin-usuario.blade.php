@@ -26,9 +26,10 @@
                     <td>{{ $rol }}</td>
                     <td>
                         @can('editar-usuario')
+                            @if($usuario->id != Auth::id())
                             <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-editarusu" wire:click="editarusu({{json_encode($usuario->email)}})">Editar Rol</button>
                             <button class="btn btn-dark" wire:click="desHab({{json_encode($usuario->email)}})">@if($usuario->activo) Deshabilitar @else Habilitar @endif</button>
-                           
+                            @endif
                         @endcan
                     </td>    
                 </tr>

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class VerProducto extends Component
 {
@@ -13,6 +14,7 @@ class VerProducto extends Component
     public $carrito;
     public $cantidad;
     public $cantidad_actual;
+    
 
     public function mount($producto){
         $this->producto = $producto;
@@ -28,6 +30,11 @@ class VerProducto extends Component
     public function render()
     {
         return view('livewire.ver-producto');
+    }
+
+    public function comprar(){
+        $token = Str::random(20);
+        return redirect()->route('comprar',['token' => $token]);
     }
 
     public function agregarFavorito(){

@@ -29,13 +29,20 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('perfil');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/compras',[App\Http\Controllers\CompraController::class,'index']
+    )->name('compras');
+});
 
 
 
+Route::get('/comprar/comprobante/{id}',[App\Http\Controllers\MercadoPagoController::class,'comprobante']);
 //Route::get('/',[App\Http\Controllers\UsuarioController::class, 'index'])->name('home');
-Route::post('/comprar',[App\Http\Controllers\MercadoPagoController::class,'comprar'])->name('comprar.post');
-Route::get('/comprar',[App\Http\Controllers\ProductosCarritoController::class,'comprar'])->name('comprar');
+Route::get('/comprar/tarjeta/{token}',[App\Http\Controllers\ProductosCarritoController::class,'recargar'])->name('tarjeta');
+Route::post('/comprar/tarjeta/{token}',[App\Http\Controllers\ProductosCarritoController::class,'tarjeta'])->name('tarjeta');
+Route::get('/comprar/{token}',[App\Http\Controllers\ProductosCarritoController::class,'comprar'])->name('comprar');
 
+Route::post('comprar/tarjeta',[App\Http\Controllers\MercadoPagoController::class,'comprar']);
 Route::get('/comprobante/{response}',[App\Http\Controllers\MercadoPagoController::class,'comprobante']);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -102,6 +109,10 @@ Route::get('admin/editar/etiqueta',[App\Http\Controllers\EtiquetaController::cla
 Route::post('admin/editar/etiqueta',[App\Http\Controllers\EtiquetaController::class,'update'])->name('etiqueta.update');
 
 
+//urgente controller
+Route::get('/admin/ventas',[App\Http\Controllers\ProductoController::class,'ventas'])->name('ventas');
+
+Route::get('/admin/ventas/{mes}/{año}',[App\Http\Controllers\PDFController::class,'crearPDF'])->name('pdf');
 
 Route::resources([
     'roles' => RoleController::class,

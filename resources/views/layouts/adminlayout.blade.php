@@ -38,7 +38,7 @@
             <ul class="nav" style="display: flex; justify-content:space-evenly;">
                 <li class="nav-item"><a class="btn btn-info" href="{{route('admin-usuarios')}}">Usuarios</a></li>
                 <li class="nav-item"><a class="btn btn-info" href="{{route('admin-productos')}}">Productos</a></li>
-                <li class="nav-item"><a class="btn btn-info" href="">Ventas</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="{{route('ventas')}}">Ventas</a></li>
                 <li class="nav-item"><a class="btn btn-info" href="{{route('admin-categorias')}}">Categorias</a></li>
                 <li class="nav-item"><a class="btn btn-info" href="{{route('admin-subcategorias')}}">SubCategorias</a></li>
                 <li class="nav-item"><a class="btn btn-info" href="{{route('admin-marcas')}}">Marcas</a></li>

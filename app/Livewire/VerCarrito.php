@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Producto;
+use Illuminate\Support\Str;
 
 class VerCarrito extends Component
 {
@@ -14,6 +16,8 @@ class VerCarrito extends Component
     public $vacio;
     public $cant;
     public $index;
+    public $carrito;
+    
 
 
     public function mount(){
@@ -74,6 +78,16 @@ class VerCarrito extends Component
     }
 
     public function completarCompra(){
-        
+        $this->carrito = DB::table('productos_carritos')->where('usuario_id',Auth::id())->get();
+        foreach($this->carrito as $producto){
+           $cantidad = DB::table('productos')->where('codigo',$producto->producto_id)->first();
+           if($cantidad->cantidad < $producto->cantidad){
+               return redirect()->route('carrito')->with('message','El producto '.$cantidad->nombre.' no tiene productos suficientes, cantidad disponible '.$cantidad->cantidad);
+           }
+           $token = Str::random(20);
+           return redirect()->route('comprar',['token' => $token]);
+        }
+
+        //Corroborar que todos los productos tengan stock
     }
 }

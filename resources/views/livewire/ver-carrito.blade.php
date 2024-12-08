@@ -34,10 +34,11 @@
 
         </tbody>
    </table>
-   <div style="display:flex; justify-content:space-between">
-        <button class="btn btn-danger" wire:click="vaciarCarrito()">Vaciar</button>
+   <div style="display:flex; justify-content:space-between;margin-bottom:1%">
+        <button class="btn btn-success" wire:click="completarCompra()">Comprar Todo</button>
         <h5 align="right" style="display:inline;">Total:{{$total}}</h5>
    </div>
+   <button class="btn btn-danger" wire:click="vaciarCarrito()">Vaciar</button>
    <div class="modal fade" id="modal-carritos" wire:ignore.self tabindex="-1" aria-labelledby="modal-label-carrito" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">

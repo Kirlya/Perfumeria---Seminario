@@ -29,7 +29,8 @@ class UsuarioController extends Controller
      public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:crear-usuario|editar-usuario|deshabilitar-usuario', ['only' => ['index']]);
+        //$this->middleware('permission:crear-usuario|editar-usuario|deshabilitar-usuario', ['only' => ['index']]);
+        $this->middleware('permission:ver-usuarios',['only' => ['index']]);
         $this->middleware('permission:ver-usuario', ['only' => ['show']]);
         $this->middleware('permission:crear-usuario', ['only' => ['create','store','crearUsuario']]);
         $this->middleware('permission:editar-usuario', ['only' => ['edit','update']]);
@@ -100,8 +101,6 @@ class UsuarioController extends Controller
             'dni' => ['required','max:8'],
             'email' => ['required', 'string', 'email', 'max:40', 'unique:usuarios'],
             'contraseña' => ['required', 'string', 'min:8', 'confirmed']]);
-        
-        
 
         $usuario = new Usuario();
         $usuario->nombre = $validardatos['nombre'];
@@ -116,19 +115,24 @@ class UsuarioController extends Controller
         }else{
             $usuario->roles_id = 3;
         }
-
-        /* model_has_roles esto debe estar en el seeder una vez
+        // model_has_roles esto debe estar en el seeder una vez
         switch($usuario->roles_id){
             case 1:
                 $usuario->assignRole('Administrador');
+                $rol = Role::findByName('Administrador');
+                $usuario->syncPermissions($rol->permissions);
                 break;
             case 2:
                 $usuario->assignRole('Operador');
+                $rol = Role::findByName('Operador');
+                $usuario->syncPermissions($rol->permissions);
                 break;
             case 3:
                 $usuario->assignRole('Usuario');
+                $rol = Role::findByName('Administrador');
+                $usuario->syncPermissions($rol->permissions);
                 break;
-        }*/
+        }
 
         $usuario->save();
         //$data contiene la informacion que se enviara en el correo
@@ -140,19 +144,20 @@ class UsuarioController extends Controller
 
         
         if(!Auth::check()){
-            Mail::to($data['email'])->send(new SendMail($data));
-            return view('login.login');
+            //  return view('login.login');
+            Mail::to($data['email'])->send(new SendMail($data));   
         }
-        
+        return redirect()->route('admin-usuarios');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    /*
     public function crearUsuario(){
         $usuario = new Usuario();
         return view('admin.crear-usuario',compact('usuario'));
-    }
+    } */
 
     public function store(Request $request)
     {

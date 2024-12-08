@@ -8,15 +8,19 @@ use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
 
 class MercadoPagoController extends Controller
 {
-
+    public $envio;
     public function __construct(){
       MercadoPagoConfig::setAccessToken('TEST-2773717888206115-102717-f5a127ac2e5593e85082c0c2e4390240-1228439040');
       MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
+      $this->envio = $request;
     }
 
     public function crearPreferencia(Request $request)
@@ -63,27 +67,31 @@ class MercadoPagoController extends Controller
       return $datos;
   }
 
-    public function comprobante(Response $response){
-        return view('pagos.pago-comprobante');
+    public function comprobante($id){
+        return view('pagos.pago-comprobante',['id' => $id]);
     }
+
+    
 
     public function comprar(Request $request){
         $unique = Str::random(40);
         $client = new PaymentClient();
         $request_options = new RequestOptions();
         $request_options->setCustomHeaders(["X-Idempotency-Key:".$unique]);
-        
+        $precio_total = DB::table('productos_carritos')->join('productos','productos_carritos.producto_id','productos.codigo')->where('productos_carritos.usuario_id',Auth::id())->value(DB::raw('sum(productos_carritos.cantidad * productos.precio) as precio_total')); 
+     
 
           try{
             $payment = $client->create([
-                "transaction_amount" => $request->get('transaction_amount'),
+                "transaction_amount" => intval($precio_total),
                 "token" => $request->get('token'),
                 "installments" => $request->get('installments'),
                 "payment_method_id" => $request->get('payment_method_id'),
                 "issuer_id" => $request->get('issuer_id'),
                 "payer" => $request->get('payer')
               ], $request_options);
-            return response()->json([$payment]);
+              dd($request); //rejected o confirmed?
+            return (response()->json([$payment]));
          } catch (MPApiException $error) {
             return response()->json([
                 'error' => $error->getApiResponse()->getContent(),
@@ -93,7 +101,6 @@ class MercadoPagoController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
-
     }
 
     /*

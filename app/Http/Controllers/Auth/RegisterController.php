@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
@@ -93,31 +94,53 @@ class RegisterController extends Controller
         $validardatos = $request->validate(['nombre' => ['required', 'string', 'max:30'],
             'apellido' => ['required','string','max:30'],
             'telefono' => ['required','string','max:20'],
+            'dni' => ['required','max:8'],
             'email' => ['required', 'string', 'email', 'max:40', 'unique:usuarios'],
             'contraseña' => ['required', 'string', 'min:8', 'confirmed']]);
-        
 
         $usuario = new Usuario();
         $usuario->nombre = $validardatos['nombre'];
         $usuario->apellido = $validardatos['apellido'];
+        $usuario->dni = $validardatos['dni'];
         $usuario->email = $validardatos['email'];
         $usuario->telefono = $validardatos['telefono'];
         $usuario->contraseña = Hash::make($validardatos['contraseña']);
         $usuario->activo = true;
-        $usuario->roles_id = 3;
-    
-        $usuario->assignRole('Usuario');
+        if($request->exists('roles_id')){
+            $usuario->roles_id = $request['roles_id'];
+        }else{
+            $usuario->roles_id = 3;
+        }
+
+        /* model_has_roles esto debe estar en el seeder una vez
+        switch($usuario->roles_id){
+            case 1:
+                $usuario->assignRole('Administrador');
+                break;
+            case 2:
+                $usuario->assignRole('Operador');
+                break;
+            case 3:
+                $usuario->assignRole('Usuario');
+                break;
+        }*/
 
         $usuario->save();
-
+        //$data contiene la informacion que se enviara en el correo
         $data = array(
             'nombre' => $validardatos['nombre'],
             'email' => $validardatos['email'],
             'asunto' => 'Perfumeria: Creacion Usuario'
         );
 
-        Mail::to($data['email'])->send(new SendMail($data));
+        
+        if(!Auth::check()){
+            
+            Mail::to($data['email'])->send(new SendMail($data));   
+        }
 
-        return view('login.login');
+        //Mail::to($data['email'])->send(new SendMail($data));
+        return redirect()->route('login');
+
     }
 }

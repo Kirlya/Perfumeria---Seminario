@@ -20,15 +20,27 @@
         <p>{{$producto->precio}}</p>
         <p style="align-self: center">{{$producto->descripcion}}</p>
         <br>
-        @if($producto->activo)
-        <a href="{{route('comprar')}}" class="btn btn-primary violeta perf-btn">Comprar</a>
-        <br>
-        <button type="button" class="btn btn-primary perf-btn violeta" data-bs-toggle="modal" data-bs-target="#modal-carrito">
-            Añadir al carrito
-          </button>
+        @hasanyrole('Administrador|Operador|Usuario')
+            @if($producto->activo)
+              <a wire:click="comprar()" class="btn btn-primary violeta perf-btn">Comprar</a>
+              <br>
+              <button type="button" class="btn btn-primary perf-btn violeta" data-bs-toggle="modal" data-bs-target="#modal-carrito">
+              Añadir al carrito
+              </button>
+            @else
+                @if($producto->cantidad > 0)
+                    <a class="btn btn-primary">Producto sin Stock</a>
+                @else
+                    Producto no disponible para compra
+                @endif
+            @endif
         @else
-          Producto no disponible para compra
-        @endif
+            <a href="{{route('login')}}" class="btn btn-primary violeta perf-btn">Comprar</a>
+            <br>
+            <a type="button" class="btn btn-primary perf-btn violeta" href="{{route('login')}}">
+            Añadir al carrito
+            </a>
+        @endhasanyrole
     </div>
 
     

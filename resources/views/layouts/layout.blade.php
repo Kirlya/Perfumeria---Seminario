@@ -20,9 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{route('home')}}">Perfumeria</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          
 
           <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
@@ -45,7 +43,7 @@
             </ul>
 
             @can('editar-producto')
-                <a href="{{ route('menu-admin') }}" target="" class="btn btn-dark" style="text-decoration:none; color:white;">Administrar</a> 
+                <a href="{{ route('menu-admin') }}" id="admin" target="" class="btn btn-dark" style="text-decoration:none; color:white;">Administrar</a> 
             @endcan
           
             <!--
@@ -53,7 +51,10 @@
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-dark" type="submit"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i></button>
             </form> -->
-            <livewire:busqueda />
+            <div class="busqueda">
+              <livewire:busqueda />
+            </div>
+            
         
               <!-- si inicio sesion -->
             @if(Auth::user() == null)
@@ -68,7 +69,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="user-menu">
                 <li><a class="dropdown-item" href="{{route('perfil')}}">Perfil</a></li>
-                <li><a class="dropdown-item" href="#">Compras</a></li>
+                <li><a class="dropdown-item" href="{{route('compras')}}">Compras</a></li>
                 <li><a class="dropdown-item" href="{{route('logout')}}">Cerrar Sesion</a></li>
               </ul> 
             </div>
@@ -82,7 +83,9 @@
               <i class="fa-solid fa-cart-shopping fa-lg" style="color: #ffffff;"></i>
             </a>
             
-            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>  
             
           </div>
         </div>

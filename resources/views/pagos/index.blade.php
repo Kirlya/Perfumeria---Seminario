@@ -13,8 +13,20 @@
   <title>Perfumeria</title>
 </head>
 <body>
-            
-<div id="cardPaymentBrick_container"></div>
+<div style="display:grid; grid-template-columns: auto auto;">
+  <div id="cardPaymentBrick_container"></div>
+  <div style="content:1%">
+      <h3>Envio a: {{$request->get('nombre')}} {{$request->get('apellido')}} </h3>
+      <h5>{{$request->get('calle')}} {{$request->get('numero')}} 
+        @if($request->get('barrio') != null){{$request->get('barrio')}} @endif @if($request->get('departamento') != null){{$request->get('departamento')}} @endif @if($request->get('piso') != null) {{$request->get('piso')}} @endif {{$request->get('ciudad')}} , {{$request->get('provincia')}} </h5>
+      @php 
+          $precio_total = DB::table('productos_carritos')->join('productos','productos_carritos.producto_id','productos.codigo')->where('productos_carritos.usuario_id',Auth::id())->value(DB::raw('sum(productos_carritos.cantidad * productos.precio) as precio_total')); 
+          $envio = $request;
+      @endphp
+      <h5>Monto a Pagar: {{$precio_total}} </h5>
+  </div>
+</div>
+
 
 
 <script>
@@ -80,7 +92,7 @@
            });
        });
        console.log('terminado');*/
-       fetch('/comprar', {
+       fetch('/comprar/tarjeta', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,10 +101,12 @@
                 body: JSON.stringify(formData)
             })
             .then((response) => {
-                      // recibir el resultado del pago
-                      //console.log(response);
-                    })
-                    .catch((error) => {
+                    return response.json();
+            }).then(data => {
+              var id = data[0].id
+              console.log(data[0]);
+              window.location.href = 'http://127.0.0.1:8000/comprar/comprobante/'+id;
+            }).catch((error) => {
                       // tratar respuesta de error al intentar crear el pago
                       console.error(error);
                     })

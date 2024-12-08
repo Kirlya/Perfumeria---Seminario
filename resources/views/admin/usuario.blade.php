@@ -3,8 +3,9 @@
 @section('content')
    
     <h2>Usuarios</h2>
+    @can('editar-usuario')
     <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-crearusu">Crear Usuario</button>
-    
+    @endcan
     
     <div class="modal fade" id="modal-crearusu" tab-index="-1" aria-labelledby="modal-title-u" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
