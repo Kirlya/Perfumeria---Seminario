@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Kumbh+Sans:wght@100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#brand{
+    width: 100%;
+    font-family: "Kumbh Sans", serif;
+    font-weight: 400;
+    font-size:6em;
+    font-variation-settings:
+    "YOPQ" 300;
+    text-align: center;
+    padding: 0.5em 0em;
+
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: "Kumbh Sans", serif;
+    font-weight: 600;
+}
+
+#icon-box{
+    display: flex;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    flex-direction: row;
+}
+
+.desktop-img{
+    width: 100%;
+    padding: 0% 5%;
+}
+
+#busqueda{
+    width: 100%;
+    padding: 0% 10%;
+}
+
+
+.cl-dark{
+    color: black;
+}
+
+.subtitles,th{
+    font-family: "Didact Gothic", serif;
+    font-weight: 400;
+    font-size: 1em !important;
+    font-style: normal;
+    margin: 0 !important;
+}
+
+input[type=range] {
+    background-color: black !important;
+}
+
+p, input, .text,label{
+    font-family: "Didact Gothic", serif;
+    font-weight: 400;
+    font-size: 1.2em;
+    font-style: normal;
+}
+
+#navbar-ul{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+i:hover{
+    color:rgb(132.6, 63.8, 244.6);
+}
+
+.li-footer{
+    text-decoration: none;
+    color: white;
+}
+
+#footer ul{
+    list-style-type: none;
+    margin-bottom: 0 !important;
+}
+
+#footer{
+    /*position: relative;
+    bottom: 0%; */
+    margin-top: 1em;
+    margin-bottom: 0%;
+    padding: 1em;
+    background-color: black;
+
+}
+
+#footer ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#footer ul li:hover{
+    cursor: pointer;
+    color:rgb(132.6, 63.8, 244.6);
+}
+
+#show{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#show-div{
+    position: relative;
+    width: 50%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#show-img{
+    padding: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    height: 80%;
+    background-size: cover;
+    overflow-y: hidden;
+}
+
+#show-img img{
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+}
+
+#show-cont{
+    /* tamaño de ejemplo probablemente necesario */
+    height: 100px;
+    width: 100%;
+}
+
+#desc-producto{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+.perf-btn p{
+    margin: 0 !important;
+}
+
+input[type='range']{ 
+    accent-color: black; 
+}
+
+.box{
+    padding: 4%;
+    background-color: #fff;
+    border-radius: 8%;
+}

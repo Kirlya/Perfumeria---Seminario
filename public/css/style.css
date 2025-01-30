@@ -181,9 +181,6 @@
   --bs-form-invalid-border-color: rgb(234, 133.8, 143.4);
 }
 
-nav {
-  background-color: rgb(132.6, 63.8, 244.6);
-}
 
 *,
 *::before,
@@ -11849,11 +11846,12 @@ textarea.form-control-lg {
   }
 }
 
-
+/*
+modificacion necesaria para el prototipo
 nav {
   background-color: rgb(132.6, 63.8, 244.6);
   padding: 1%;
-}
+} */
 
 #logo{
   padding-left: 1%;
@@ -11877,9 +11875,6 @@ body{
 
 .form-container{
   position: absolute;
-  top: 20%;
-  left: 30%;
-  height: 60%;
   width: 40%;
 }
 
@@ -11895,7 +11890,7 @@ body{
 }
 
 #desc-producto{
-  margin: 3%;
+  width: 50%;
   padding: 3%;
   display:flex;
   flex-direction: column;
@@ -11903,7 +11898,9 @@ body{
 
 .perf-btn{
   align-self: center;
-  width: 16em;
+  padding: 0.5em;
+  width: 12em;
+  margin: 1em;
 }
 
 .container-prod{

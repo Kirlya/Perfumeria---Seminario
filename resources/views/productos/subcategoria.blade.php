@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout2')
     @php 
         $cat = DB::table('categorias')->where('id',$categoria)->value('activo');
         $sub = DB::table('sub_categorias')->where('id',$subcategoria)->value('activo');

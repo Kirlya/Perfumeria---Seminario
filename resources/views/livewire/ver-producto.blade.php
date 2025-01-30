@@ -1,46 +1,69 @@
-<div class="container-prod container-fluid">
-    
-    <img src="{{asset($producto->imagen)}}" alt="{{$producto->nombre}}" id="producto-foto">
-    <div id="desc-producto" style="position: relative;">
-        @if($producto->activo)
-        <div style="position:absolute; z-index:3; width:30px; right:0%; top:0%;" wire:click="agregarFavorito()" >
-            @if($favorito == $producto->codigo)
-                <i class="fa-solid heart fa-heart fa-2xl" style="color: #e10e0e;"> </i>
-            @else
-                <i class="fa-regular heart fa-heart fa-2xl" style="color: #e10e0e;"></i>
-            @endif               
+<div class="container-prod container-fluid" id="show">
+    <div id="show-div">
+        <div id="show-img">
+            <img src="{{asset($producto->imagen)}}" alt="{{$producto->nombre}}">
         </div>
-        @endif
-        <h3>{{$producto->nombre}}</h3>
+        <div id="show-cont">
+            
+                <!-- aqui van un div con cada img -->
+            
+        </div>
+    </div>
+    <div id="desc-producto" style="position: relative;">
+        <!-- falta usuario registrado en el heart si no esta va redireccionado al login --SOLUCIONADO implementar en subcategoria-- -->
+        @hasanyrole('Administrador|Operador|Usuario')
+            @if($producto->activo)
+                <div style="position:absolute; z-index:3; width:30px; right:5%;" wire:click="agregarFavorito()" >
+                    @if($favorito == $producto->codigo)
+                        <i class="fa-solid heart fa-heart fa-2xl" style="color: #e10e0e;"> </i>
+                    @else
+                        <i class="fa-regular heart fa-heart fa-2xl" style="color: #e10e0e;"></i>
+                    @endif               
+                </div>
+            @endif
+        @else
+            <div style="position:absolute; z-index:3; width:30px; right:5%;"><a href="{{route('login')}}">
+                <i class="fa-regular heart fa-heart fa-2xl" style="color: #e10e0e;"></i>
+            </a>
+                
+            </div>  
+        @endhasanyrole
+        <h3 style="padding-right: 5%">{{$producto->nombre}}</h3>
         
         @php
             $marca = DB::table('marcas')->where('marcas.codigo',$producto->cod_marca)->value('nombre');
         @endphp
+        <!-- Opcion de poder seleccionar la marca para que se rediriga a la pagina con todos los productos de esta -->
         <h5>{{$marca}}</h5>
         <p>{{$producto->precio}}</p>
         <p style="align-self: center">{{$producto->descripcion}}</p>
+        <!-- Lo que faltaria aqui opcion si hay otros tipos mas informacion o alguna forma de rellenar el vacio -->
         <br>
-        @hasanyrole('Administrador|Operador|Usuario')
-            @if($producto->activo)
-              <a wire:click="comprar()" class="btn btn-primary violeta perf-btn">Comprar</a>
-              <br>
-              <button type="button" class="btn btn-primary perf-btn violeta" data-bs-toggle="modal" data-bs-target="#modal-carrito">
-              Añadir al carrito
-              </button>
-            @else
-                @if($producto->cantidad > 0)
-                    <a class="btn btn-primary">Producto sin Stock</a>
+        
+            <div style="display:flex; flex-direction:row; justify-content:space-between">
+                @hasanyrole('Administrador|Operador|Usuario')
+                    @if($producto->activo)
+                        <a wire:click="comprar()" class="btn btn-dark perf-btn"><p>Comprar</p></a>
+                        <br>
+                        <button type="button" class="btn btn-dark perf-btn" data-bs-toggle="modal" data-bs-target="#modal-carrito">
+                        <p>Añadir al carrito</p>
+                        </button>
+                    @else
+                        @if($producto->cantidad > 0)
+                            <a class="btn btn-primary">Producto sin Stock</a>
+                        @else
+                            Producto no disponible para compra
+                        @endif
+                    @endif
                 @else
-                    Producto no disponible para compra
-                @endif
-            @endif
-        @else
-            <a href="{{route('login')}}" class="btn btn-primary violeta perf-btn">Comprar</a>
-            <br>
-            <a type="button" class="btn btn-primary perf-btn violeta" href="{{route('login')}}">
-            Añadir al carrito
-            </a>
-        @endhasanyrole
+                    <a href="{{route('login')}}" class="btn btn-dark perf-btn"><p>Comprar</p></a>
+                    <br>
+                    <a type="button" class="btn btn-dark perf-btn" href="{{route('login')}}">
+                    <p>Añadir al carrito</p>
+                    </a>
+                @endhasanyrole
+            </div>
+            
     </div>
 
     
