@@ -54,10 +54,18 @@ h1,h2,h3,h4,h5,h6{
     color: black;
 }
 
-.subtitles,th{
+.subtitles,th,button{
     font-family: "Didact Gothic", serif;
     font-weight: 400;
     font-size: 1em !important;
+    font-style: normal;
+    margin: 0 !important;
+}
+
+.text-sub {
+    font-family: "Didact Gothic", serif;
+    font-weight: 400;
+    font-size: 0.9em !important;
     font-style: normal;
     margin: 0 !important;
 }
@@ -173,4 +181,60 @@ input[type='range']{
     padding: 4%;
     background-color: #fff;
     border-radius: 8%;
+}
+
+
+#admin-title{
+    width: 60%;
+    font-family: "Kumbh Sans", serif;
+    font-weight: 400;
+    font-size:2.5em;
+    font-variation-settings:
+    "YOPQ" 300;
+    text-align: left;
+    padding: 0.5em 1em;
+}
+
+#admin-menu-icon{
+    position: absolute;
+    top:4%;
+    right: 2%;
+    z-index: 3;
+}
+
+#admin-menu-options{
+    position: absolute;
+    z-index: 2;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
+#admin-ul{
+    height: inherit;
+    width: inherit;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#admin-ul a{
+    text-decoration: none;
+    color: black;
+    font-family: "Kumbh Sans", serif;
+    font-weight: 400;
+    font-size:1.6em;
+    font-variation-settings:
+    "YOPQ" 300;
+}
+
+.p-l{
+    padding-left: 2%;
+}
+
+#admin-index{
+    display: grid;
+    grid-template-columns: auto auto;
 }

@@ -80,8 +80,8 @@
                 <input type="number" wire:model="cantidad" min="1" value={{$cantidad}} >
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" wire:click="agregarCarrito()"  data-bs-dismiss="modal" >Añadir</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary subtitles" wire:click="agregarCarrito()"  data-bs-dismiss="modal" >Añadir</button>
+                <button type="button" class="btn btn-secondary subtitles" data-bs-dismiss="modal">Cerrar</button>
               
             </div>
           </div>

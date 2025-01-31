@@ -17,18 +17,18 @@
                 @if(isset($cod_marcas) && count($cod_marcas)>0)
                     <h6>Marcas</h6> 
                     @foreach($cod_marcas as $cod_marca)
-                        <label for="{{$cod_marca->nombre}}"><p class="subtitles">{{$cod_marca->nombre}} </p></label> 
+                        <label for="{{$cod_marca->nombre}}"><p class="text-sub">{{$cod_marca->nombre}} </p></label> 
             <!--cuando se hace clic al checkbox necesito guardar el nombre de la variable  -->
                         <input type="checkbox" wire:click="agregarMarca({{json_encode($cod_marca->codigo)}})" name="{{$cod_marca->nombre}}" id=""> <br>
                     @endforeach 
                 @endif
                 <br>
             <h6>Precio</h6>
-            <label for=""><p class="subtitles">Minimo:</p></label> 
+            <label for=""><p class="text-sub">Minimo:</p></label> 
             
             <p class="subtitles">{{$mina}}</p> 
             <input type="range" id="minP" max="{{$maxv}}" step="1000" min="0" value="{{ $mina }}" wire:model="mina" wire:change="actualizarPrecioMin()"/> <br>
-            <label for=""><p class="subtitles">Maximo:</p></label> 
+            <label for=""><p class="text-sub">Maximo:</p></label> 
             <p class="subtitles">{{$maxa}}</p> 
             <input type="range" id="maxP" max="{{$maxv}}" step="1000" min="0" value="{{ $maxa }}" wire:model="maxa" wire:change="actualizarPrecioMax()" />
             <br>
