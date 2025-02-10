@@ -196,7 +196,7 @@ input[type='range']{
 }
 
 #admin-menu-icon{
-    position: absolute;
+    position:absolute;
     top:4%;
     right: 2%;
     z-index: 3;
@@ -237,4 +237,16 @@ input[type='range']{
 #admin-index{
     display: grid;
     grid-template-columns: auto auto;
+}
+
+.btn-admin{
+    width: 20%;
+}
+
+.marg-left{
+    margin-left: 2%;
+}
+
+.marg-bottom{
+    margin-bottom: 2%;
 }

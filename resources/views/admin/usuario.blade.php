@@ -2,9 +2,9 @@
 
 @section('content')
    
-    <h2>Usuarios</h2>
+    <h2 class="marg-left marg-bottom">Usuarios</h2>
     @can('editar-usuario')
-    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-crearusu">Crear Usuario</button>
+    <a class="btn btn-dark btn-admin marg-bottom marg-left" data-bs-toggle="modal" data-bs-target="#modal-crearusu">Crear Usuario</a>
     @endcan
     
     <div class="modal fade" id="modal-crearusu" tab-index="-1" aria-labelledby="modal-title-u" aria-hidden="true">

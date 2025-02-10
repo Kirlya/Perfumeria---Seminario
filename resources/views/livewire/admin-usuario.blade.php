@@ -2,6 +2,8 @@
     @php
         //$usuarios = DB::table('usuarios')->get();
     @endphp
+    <!-- Aca deberia estar el filtro la busqueda y el orden -->
+
     <table class="table">
         <thead>
             <tr>
