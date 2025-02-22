@@ -9,45 +9,45 @@
         @if(empty($productos->toArray()) && empty($cod_marcas->toArray()))
             Sin Productos
         @else
-            <div id="div-filtro" style="border:1px solid black; padding:1%;width:15%">
+            <div id="div-filtro" style=" padding:1%;width:15%">
                 <!--<form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" wire:keydown="buscar" wire:model="busqueda">      
                 </form> -->
                 <br>
                 @if(isset($cod_marcas) && count($cod_marcas)>0)
-                    <h6>Marcas</h6> <br>
+                    <h6>Marcas</h6> 
                     @foreach($cod_marcas as $cod_marca)
-                        <label for="{{$cod_marca->nombre}}">{{$cod_marca->nombre}} </label> 
+                        <label for="{{$cod_marca->nombre}}"><p class="text-sub">{{$cod_marca->nombre}} </p></label> 
             <!--cuando se hace clic al checkbox necesito guardar el nombre de la variable  -->
                         <input type="checkbox" wire:click="agregarMarca({{json_encode($cod_marca->codigo)}})" name="{{$cod_marca->nombre}}" id=""> <br>
                     @endforeach 
                 @endif
                 <br>
             <h6>Precio</h6>
-            <label for="">Minimo:</label> <br>
+            <label for=""><p class="text-sub">Minimo:</p></label> 
             
-            {{$mina}} <br>
+            <p class="subtitles">{{$mina}}</p> 
             <input type="range" id="minP" max="{{$maxv}}" step="1000" min="0" value="{{ $mina }}" wire:model="mina" wire:change="actualizarPrecioMin()"/> <br>
-            <label for="">Maximo:</label> <br>
-            {{$maxa}} <br>
+            <label for=""><p class="text-sub">Maximo:</p></label> 
+            <p class="subtitles">{{$maxa}}</p> 
             <input type="range" id="maxP" max="{{$maxv}}" step="1000" min="0" value="{{ $maxa }}" wire:model="maxa" wire:change="actualizarPrecioMax()" />
             <br>
-            
+            <br>
             <h6>Orden</h6>
             <select name="" id="o-tipo" wire:model="orden_name">
                 <option value="" selected hidden ></option>
-                <option value="nombre">Nombre</option>
-                <option value="precio">Precio</option>
+                <option value="nombre"><p class="subtitles">Nombre</p></option>
+                <option value="precio"><p class="subtitles">Precio</p></option>
             </select>
 
             <select name="" id="o-asc-des" wire:model="orden_crit">
                 <option value="" selected hidden ></option>
-                <option value="1">Asc</option>
-                <option value="2">Des</option>
+                <option value="1"><p class="subtitles">Asc</p></option>
+                <option value="2"><p class="subtitles">Des</p></option>
             </select>
             <br>
             <br>
-            <a class="btn btn-primary violet" wire:click="orden()">Aplicar</a>
+            <a class="btn btn-dark" wire:click="orden()"><p class="subtitles">Aplicar</p></a>
 
             <script>
                 let minInput = document.getElementById('minP');
@@ -71,7 +71,7 @@
             
             </div>
             @if(empty($productos->toArray()))
-                 <div style="content:3%;margin:3%;"><p>No Productos</p></div>
+                 <div style="content:3%;margin:3%;"><p>No se encuentran Productos</p></div>
             @endif
         @endif
 
@@ -80,13 +80,17 @@
             
             <!-- Visible o no para solo los tipo Usuario probablemente Redireccion a login -->
             <div class="card text-center pointer"  style="width: 15rem; margin: 2%; position:relative;">
-                <div style="position:absolute; z-index:3; width:20%;padding-top:5px" wire:click="agregarFavorito({{json_encode($product->codigo)}})" >
-                   
-                    @if(in_array($product->codigo,$favoritos))
-                        <i class="fa-solid heart fa-heart fa-2xl" style="color: #e10e0e;"> </i>
+                <div style="position:absolute; right:2%; top:2%; z-index:3; width:20%;padding-top:5px" wire:click="agregarFavorito({{json_encode($product->codigo)}})" >
+                    
+                    @hasanyrole('Administrador|Operador|Usuario')
+                        @if(in_array($product->codigo,$favoritos))
+                            <i class="fa-solid heart fa-heart fa-2xl" style="color: #e10e0e;"> </i>
+                        @else
+                            <i class="fa-regular heart fa-heart fa-2xl" style="color: #e10e0e;"></i>
+                        @endif
                     @else
-                        <i class="fa-regular heart fa-heart fa-2xl" style="color: #e10e0e;"></i>
-                    @endif               
+                        <a href="{{route('login')}}"> <i class="fa-regular heart fa-heart fa-2xl" style="color: #e10e0e;"></i> </a>
+                    @endhasanyrole
                 </div>
                 
                 
@@ -95,11 +99,12 @@
                     <h6 class="card-title">
                         {{$product->nombre}}
                     </h6>
-                    <p class="card-text">${{$product->precio}}</p>
+                    <p class="card-text subtitles">${{$product->precio}}</p>
                     @php
                     $producto = Producto::find($product->codigo);
                     @endphp
-                 <a href="{{route('producto', $producto )}}" style="text-decoration:none;color:white;" class="btn btn-primary violeta">Ver Producto</a>
+                    <br>
+                 <a href="{{route('producto', $producto )}}" style="text-decoration:none;color:white; margin-top:1em;" class="btn btn-dark subtitles">Ver Producto</a>
                 </div>
             </div>
            

@@ -1,6 +1,7 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminlayout2')
 
 @section('content')
+<h2 class="marg-left marg-bottom">Ventas</h2>
 <div style="margin:2%">
     @php
         $ultimo = DB::table('compras')->max('fecha');

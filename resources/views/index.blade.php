@@ -1,12 +1,15 @@
-@extends('layouts.layout')
+@extends('layouts.layout2')
+<!-- probando layout nuevo -->
  
     @php
+        //a mejorar
         $producto_banner1 = DB::table('productos')->where('codigo',1010000)->value('productos.*');    
         $producto_banner2 = DB::table('productos')->where('codigo',1010001)->value('productos.*');
     @endphp
     @section('content')
+    <!-- no mas absolute por ahora -->
     <div class="container-fluid ">
-        <div class="carousel slide position-absolute top-50 start-50 translate-middle desktop-img" data-bs-ride="carousel">
+        <div class="carousel slide position-relative desktop-img" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <a href="{{route('producto',['producto' => $producto_banner1])}}" >

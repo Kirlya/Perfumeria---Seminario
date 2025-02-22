@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/0763a21c1e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/layout.css">
     <title>Perfumeria Register</title>
 </head>
 <style>
@@ -15,13 +16,17 @@
         height: 100%;
         margin: 0;
     }
+    body{
+        background-color: rgb(132.6, 63.8, 244.6);
+    }
 </style>
 <body>
     <div id="form-back">
-        <a href="{{ route('login') }}"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #000000;"></i></a>
+        <a href="{{ route('login') }}"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #fff;"></i></a>
     </div>
-    <div class="container form-container">
-        <h1>Perfumeria Login</h1>
+    <div class="container form-container top-50 start-50 translate-middle box">
+        <h1>Perfumeria Laravel</h1>
+        <h2>Registro</h2>
         <form action="{{ route('registrar') }}" method="POST">
             @csrf
         <div class="row mb-3">
@@ -118,7 +123,7 @@
 
         <div class="row mb-0">
             <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-dark">
                     Registrar Aqui
                 </button>
             </div>

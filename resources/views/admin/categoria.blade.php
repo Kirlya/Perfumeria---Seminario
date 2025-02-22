@@ -1,9 +1,9 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminlayout2')
 
 @section('content')
 
-    <h2>Categorias</h2>
-    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-crearc">Crear Categoria</button>
+    <h2 class="marg-left marg-bottom">Categorias</h2>
+    <a class="btn btn-dark btn-admin marg-left marg-bottom" data-bs-toggle="modal" data-bs-target="#modal-crearc">Crear Categoria</a>
     
     
     <div class="modal fade" id="modal-crearc" tab-index="-1" aria-labelledby="modal-title-c" aria-hidden="true">

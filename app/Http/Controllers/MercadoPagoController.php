@@ -20,7 +20,7 @@ class MercadoPagoController extends Controller
     public function __construct(){
       MercadoPagoConfig::setAccessToken('TEST-2773717888206115-102717-f5a127ac2e5593e85082c0c2e4390240-1228439040');
       MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
-      $this->envio = $request;
+        //$this->envio = $request;
     }
 
     public function crearPreferencia(Request $request)
@@ -90,7 +90,7 @@ class MercadoPagoController extends Controller
                 "issuer_id" => $request->get('issuer_id'),
                 "payer" => $request->get('payer')
               ], $request_options);
-              dd($request); //rejected o confirmed?
+              //dd($request); //rejected o confirmed?
             return (response()->json([$payment]));
          } catch (MPApiException $error) {
             return response()->json([

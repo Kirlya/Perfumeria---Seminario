@@ -1,9 +1,9 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminlayout2')
 
 @section('content')
     
-    <h2>Etiquetas</h2>
-    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-crearet">Crear Etiqueta</button>
+    <h2 class="marg-left marg-bottom">Etiquetas</h2>
+    <a class="btn btn-dark marg-left marg-bottom btn-admin" data-bs-toggle="modal" data-bs-target="#modal-crearet">Crear Etiqueta</a>
     
     
     <div class="modal fade" id="modal-crearet" tab-index="-1" aria-labelledby="modal-title-et" aria-hidden="true">
