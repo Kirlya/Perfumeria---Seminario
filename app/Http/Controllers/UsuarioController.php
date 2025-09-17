@@ -136,6 +136,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
         //$data contiene la informacion que se enviara en el correo
+        /* enviar correo deshabilitado temporal
         $data = array(
             'nombre' => $validardatos['nombre'],
             'email' => $validardatos['email'],
@@ -147,6 +148,7 @@ class UsuarioController extends Controller
             //  return view('login.login');
             Mail::to($data['email'])->send(new SendMail($data));   
         }
+        */
         return redirect()->route('admin-usuarios');
     }
 

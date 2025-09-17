@@ -2,7 +2,9 @@
     @php
         //$productos = DB::table('productos')->get();
     @endphp
+
     <table class="table">
+        
         <thead>
             <tr>
                 <th scope="col" class="pointer"> <a wire:click="ordenarPorCodigo()">Codigo</a></th>
@@ -41,10 +43,12 @@
                     <td>
                         <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-editarp" wire:click="edit({{$producto->codigo}})">Editar</button>
                         <button class="btn btn-dark" wire:click="desHab({{$producto->codigo}})">@if($producto->activo) Deshabilitar @else Habilitar @endif</button>
+                        <button class="btn btn-dark">Modelos</button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
+       
         <div class="modal fade" id="modal-editarp" wire:ignore.self tab-index="-1" aria-labelledby="modal-title-p" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -55,7 +59,7 @@
                     <div class="modal-body">
                         <form action="" wire:submit.prevent="update">
                             @csrf
-
+    
                             <div class="row mb-3">
                                 <label for="codigo" class="col-md-4 col-form-label text-md-end">Codigo:</label>
                     
@@ -69,7 +73,7 @@
                                     @enderror
                                 </div>
                             </div>
-
+    
                             <div class="row mb-3">
                                 <label for="nombre" class="col-md-4 col-form-label text-md-end">Nombre:</label>
                     
@@ -83,8 +87,8 @@
                                     @enderror
                                 </div>
                             </div>
-
-
+    
+    
                             <div class="row mb-3">
                                 <label for="descripcion" class="col-md-4 col-form-label text-md-end">Descripcion:</label>
                     
@@ -134,13 +138,13 @@
                                     @enderror
                                 </div>
                             </div>
-
+    
                             @php
                                 $marcas = DB::table('marcas')->select('nombre')->get();   
                             @endphp
                             <div class="row mb-3">
                                 <label for="marca" class="col-md-4 col-form-label text-md-end">Marca:</label>
-
+    
                                 <div class="col-md-6">
                                     <select name="marca" id="marca" value="{{old('marca')}}" wire:model="marcap" required>
                                     @foreach ($marcas as $marca)
@@ -180,6 +184,9 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </table>
+    
+    
 </div>

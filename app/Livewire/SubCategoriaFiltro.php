@@ -51,6 +51,8 @@ class SubCategoriaFiltro extends Component
         //pos array_search('valor',$array)
         //unset(array[pos]);
         //falla this->pos
+        //verificar que el producto no este deshabilitado
+
         $this->pos = array_search($marca,$this->marcas);
         if(in_array($marca,$this->marcas)){
             unset($this->marcas[$this->pos]);

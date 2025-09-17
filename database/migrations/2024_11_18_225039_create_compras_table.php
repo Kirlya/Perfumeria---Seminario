@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('compras', function (Blueprint $table) {
             $table->decimal('N_Factura',10,0);
             $table->date('fecha');
-            $table->decimal('total',8,2);
+            $table->decimal('total',8,0);
             $table->unsignedBigInteger('usuario');
             $table->unsignedBigInteger('metodoPago');
             $table->unsignedBigInteger('estadoPago');

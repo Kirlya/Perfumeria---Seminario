@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //crear tablas provincia y codigo postal
         Schema::create('envios', function (Blueprint $table) {
             $table->decimal('N_Factura',10,0);
             $table->date('fecha_envio')->nullable();

@@ -61,6 +61,9 @@ class SubCategoriaSeeder extends Seeder
             'activo' => 1],
             ['nombre' => 'Otros',
             'categoria_id' => '5',
+            'activo' => 1],
+            ['nombre' => 'Emulsiones',
+            'categoria_id' => 4,
             'activo' => 1]
             ];
 

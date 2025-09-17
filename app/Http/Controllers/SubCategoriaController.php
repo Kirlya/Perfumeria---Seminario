@@ -49,7 +49,7 @@ class SubCategoriaController extends Controller
         $cat = DB::table('categorias')->where('categorias.nombre','=',$request->get('categoria'))->value('id');
         $existe = DB::table('sub_categorias')->where('sub_categorias.nombre','=',$request->get('nombre'))->where('sub_categorias.categoria_id',$cat)->get();
         //falta probar
-        if($existe == null){
+        if(count($existe) == 0){
             $subcategoria->nombre = $request->get('nombre');
             $subcategoria->categoria_id = $cat;
             $subcategoria->activo = 1;

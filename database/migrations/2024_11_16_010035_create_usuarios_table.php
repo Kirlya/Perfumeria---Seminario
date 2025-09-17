@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //usuario por dni?? un dni puede tener mas usuarios?
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-            $table->decimal('dni',8,0)->unique();
+            $table->decimal('dni',8,0);
             $table->string('nombre',30);
             $table->string('apellido',30);
             $table->string('telefono',20);

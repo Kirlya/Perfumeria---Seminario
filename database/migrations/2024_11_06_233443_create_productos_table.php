@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // cambiar el precio a 10,2
         Schema::create('productos', function (Blueprint $table) {
             $table->decimal('codigo',8,0);
             $table->string('nombre');
             $table->string('descripcion')->nullable();
-            $table->decimal('precio',10,2);
+            $table->decimal('precio',10,0);
             $table->decimal('cantidad',5,0);
             $table->string('imagen');
             $table->boolean('activo');

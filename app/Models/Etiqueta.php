@@ -12,7 +12,7 @@ class Etiqueta extends Model
     protected $table = 'Etiquetas';
 
     protected $fillable = [
-        'nombre', 'activo'
+        'grupo_id','nombre', 'activo'
     ];
 
     protected $hidden = [

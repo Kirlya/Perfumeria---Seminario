@@ -15,7 +15,7 @@ return new class extends Migration
             $table->decimal('N_Factura',10,0);
             $table->integer('N_Linea');
             $table->decimal('cantidad',5,0);
-            $table->decimal('precio_unit',10,2);
+            $table->decimal('precio_unit',10,0);
             $table->decimal('cod_prod',8,0);
             $table->timestamps();
 

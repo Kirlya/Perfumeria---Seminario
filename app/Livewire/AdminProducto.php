@@ -21,6 +21,7 @@ class AdminProducto extends Component
     public $descripcion;
     public $precio;
     public $imagen;
+    public $modelos;
     public $activo;
     public $cantidad;
     public $marcap;
@@ -163,4 +164,5 @@ class AdminProducto extends Component
         
         $this->productos[$this->index]->activo = $this->activo;
     }
+
 }

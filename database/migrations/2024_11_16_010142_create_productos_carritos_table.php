@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //modificar aqui tambien precio
         Schema::create('productos_carritos', function (Blueprint $table) {
             //usar codigo producto y correo
             $table->decimal('producto_id',8,0);
             $table->unsignedBigInteger('usuario_id',40);
             $table->decimal('cantidad',5,0);
-            $table->decimal('precio',10,2);
+            $table->decimal('precio',10,0);
             $table->timestamps();
 
             $table->foreign('producto_id')->references('codigo')->on('productos');

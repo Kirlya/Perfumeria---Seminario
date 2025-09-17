@@ -34,6 +34,7 @@
         <li class="admin-options-li"><a href="{{route('admin-usuarios')}}">Usuarios</a></li>
         <li class="admin-options-li"><a href="">Grupos</a></li>
         <li class="admin-options-li"><a href="{{route('admin-productos')}}">Productos</a></li>
+        <li class="admin-options-li"><a href="{{route('admin-modelos')}}">Modelos</a></li>
         <li class="admin-options-li"><a href="{{route('admin-categorias')}}">Categorias</a></li>
         <li class="admin-options-li"><a href="{{route('admin-subcategorias')}}">Subcategorias</a></li>
         <li class="admin-options-li"><a href="{{route('ventas')}}">Ventas</a></li>
@@ -50,17 +51,19 @@
     var menu = document.getElementById("admin-menu-options");
     var icon = document.getElementById("admin-menu-icon");
     icon.addEventListener('click',mostrarMenu);
+    var body = document.getElementsByTagName("body")[0];
     function mostrarMenu(){
-        /* for some reason the class hidden it's not working
-        if(menu.classList.contains("hidden")){
-            menu.classList.remove("hidden");
-            menu.classList.add("visible"); 
+       
+        
+        if(body.classList.contains("menu-fix")){
+            body.classList.remove("menu-fix");
+            
         }
         else {
-            menu.classList.remove("visible");
-            menu.classList.add("hidden");
-        }
-        */
+            body.classList.add("menu-fix");
+            
+        } 
+        
        if(menu.hidden){
             menu.hidden=false;
        }

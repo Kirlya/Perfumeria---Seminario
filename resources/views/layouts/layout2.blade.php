@@ -28,7 +28,9 @@
             </a>          
         @else
             <div class="dropdown" width="20px" height="auto" style="display:inline">
-              <a href="{{route('menu-admin')}}" class="btn btn-dark subtitles">Admin</a>
+              @hasanyrole('Administrador|Operador')
+                <a href="{{route('menu-admin')}}" class="btn btn-dark subtitles">Admin</a>
+              @endhasanyrole
               <a href="" class="icons cl-dark" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-user fa-xl"></i>
               </a>

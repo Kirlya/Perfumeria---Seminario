@@ -11,7 +11,7 @@ body{
     overflow-y:scroll;
     display: flex;
     flex-direction: column;
-    
+    justify-content: space-between;
 }
 
 #brand{
@@ -196,7 +196,7 @@ input[type='range']{
 }
 
 #admin-menu-icon{
-    position:absolute;
+    position:fixed;
     top:4%;
     right: 2%;
     z-index: 3;
@@ -211,7 +211,7 @@ input[type='range']{
 }
 
 #admin-ul{
-    height: inherit;
+    height: 100vh;
     width: inherit;
     padding: 5%;
     display: flex;
@@ -249,4 +249,9 @@ input[type='range']{
 
 .marg-bottom{
     margin-bottom: 2%;
+}
+
+.menu-fix{
+    position:fixed !important;
+    overflow-y:hidden;
 }

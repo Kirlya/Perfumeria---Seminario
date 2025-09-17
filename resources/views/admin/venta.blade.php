@@ -10,16 +10,18 @@
         $fecha_fin = DateTime::createFromFormat('Y-m-d',$ultimo);
         //dd($fecha_ini);
     @endphp
-    @for($y = $fecha_ini->format('Y') ; $y <= $fecha_fin->format('Y') ; $y++)
-        @for($i=1;$i<=12;$i++)
-            @php
-                $ventas = DB::table('compras')->whereMonth('fecha',$i)->get();
-            @endphp
-            @if(!empty($ventas->toArray()))
-                <a href="{{route('pdf', ['mes' => $i, 'año' => $y] ) }}">Ventas del {{$i}} - {{$y}}</a>
-                <br>
-            @endif
+    @if($fecha_ini != null)
+        @for($y = $fecha_ini->format('Y') ; $y <= $fecha_fin->format('Y') ; $y++)
+            @for($i=1;$i<=12;$i++)
+                @php
+                    $ventas = DB::table('compras')->whereMonth('fecha',$i)->get();
+                @endphp
+                @if(!empty($ventas->toArray()))
+                    <a href="{{route('pdf', ['mes' => $i, 'año' => $y] ) }}">Ventas del {{$i}} - {{$y}}</a>
+                    <br>
+                @endif
+            @endfor
         @endfor
-    @endfor
+    @endif
 </div>
 @endsection

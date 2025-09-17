@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RoleController;
 
-/*
+
 Route::get('/', function () {
     return view('index');
-});*/
+});
 
-//Auth::routes();
+Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/favoritos',function(){
@@ -108,6 +108,9 @@ Route::post('admin/crear/etiqueta',[App\Http\Controllers\EtiquetaController::cla
 Route::get('admin/editar/etiqueta',[App\Http\Controllers\EtiquetaController::class,'edit'])->name('etiqueta.edit');
 Route::post('admin/editar/etiqueta',[App\Http\Controllers\EtiquetaController::class,'update'])->name('etiqueta.update');
 
+Route::get('admin/modelos',[App\Http\Controllers\ModelosController::class,'index'])->name('admin-modelos');
+Route::get('admin/modelos/{producto}',[App\Http\Controllers\ModelosController::class,'modeloProducto'])->name('modelo.producto');
+Route::post('admin/crear/modelos',[App\Http\Controllers\ModelosController::class,'store'])->name('modelos.store');
 
 //urgente controller
 Route::get('/admin/ventas',[App\Http\Controllers\ProductoController::class,'ventas'])->name('ventas');
